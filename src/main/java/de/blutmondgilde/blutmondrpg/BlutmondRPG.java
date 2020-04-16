@@ -4,6 +4,7 @@ import de.blutmondgilde.blutmondrpg.capabilities.CustomCapabilityManager;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,6 +27,7 @@ public class BlutmondRPG {
     public BlutmondRPG() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new CustomCapabilityManager());
     }
 
     private void setup(final FMLCommonSetupEvent event) {
