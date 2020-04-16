@@ -24,6 +24,8 @@ public class CustomNetworkManager {
         int disc = 0;
 
         HANDLER.registerMessage(disc++, OpenChooseGuiPacket.class, OpenChooseGuiPacket::encode, OpenChooseGuiPacket::decode, OpenChooseGuiPacket.Handler::handle);
+        HANDLER.registerMessage(disc++, ChangeClassPacket.class, ChangeClassPacket::encode, ChangeClassPacket::decode, ChangeClassPacket.Handler::handle);
+        HANDLER.registerMessage(disc++, SyncClassDataPacket.class, SyncClassDataPacket::encode, SyncClassDataPacket::decode, SyncClassDataPacket.Handler::handle);
 
     }
 
@@ -41,7 +43,7 @@ public class CustomNetworkManager {
     }
 
     private static void syncPlayer(PlayerEntity player, IModClass capability) {
-        //sendToPlayer(new SyncPlayerUserClassPacket(player, capability), player);
+        sendToPlayer(new SyncClassDataPacket(player, capability), player);
     }
 
     public static void syncPlayer(PlayerEntity player) {

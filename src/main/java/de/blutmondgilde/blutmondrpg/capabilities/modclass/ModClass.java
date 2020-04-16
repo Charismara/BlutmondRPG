@@ -33,6 +33,11 @@ public class ModClass implements IModClass {
     @Override
     public void setBasicClass(BasicClasses basicClass) {
         this.basicClass = basicClass;
+        setMaxHP(basicClass.getBaseHP());
+        setClassExp(0);
+        setClassLevel(ClassLevel.L1);
+        setMaxMana(basicClass.getBaseMana());
+        setCurrentMana(0);
     }
 
     @Override

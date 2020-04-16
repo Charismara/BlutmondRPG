@@ -1,6 +1,9 @@
 package de.blutmondgilde.blutmondrpg.gui;
 
+import de.blutmondgilde.blutmondrpg.enums.BasicClasses;
 import de.blutmondgilde.blutmondrpg.gui.elements.base.BaseImageButton;
+import de.blutmondgilde.blutmondrpg.network.ChangeClassPacket;
+import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -41,17 +44,6 @@ public class ChooseClassGUI extends Screen {
             new ResourceLocation(Ref.MOD_ID, "textures/gui/basic_classes_icons.png"),
             (Client) -> handleChooseScoutButton()
     );
-    private BaseImageButton choosePriestButton = new BaseImageButton(
-            8 + 64 + 8 + 64 + 8 + 64 + 8,
-            16,
-            64,
-            64,
-            64,
-            0,
-            64,
-            new ResourceLocation(Ref.MOD_ID, "textures/gui/basic_classes_icons.png"),
-            (Client) -> handleChoosePriestButton()
-    );
 
     public ChooseClassGUI() {
         super(new TranslationTextComponent(Ref.MOD_ID + ".gui.chooseclass.title"));
@@ -64,7 +56,6 @@ public class ChooseClassGUI extends Screen {
         addButton(chooseWarriorButton);
         addButton(chooseMageButton);
         addButton(chooseScoutButton);
-        addButton(choosePriestButton);
     }
 
     @Override
@@ -79,31 +70,22 @@ public class ChooseClassGUI extends Screen {
         if (chooseScoutButton.isHovered()) {
             drawCenteredString(this.font, new TranslationTextComponent(Ref.MOD_ID + ".class.name.scout").getString(), this.width / 2, this.height - 48, 10066329);
         }
-        if (choosePriestButton.isHovered()) {
-            drawCenteredString(this.font, new TranslationTextComponent(Ref.MOD_ID + ".class.name.priest").getString(), this.width / 2, this.height - 48, 10066329);
-        }
     }
 
     private void handleChooseWarriorButton() {
-        //CustomNetworkManager.sendToServer(new ChangeClassPacket(UserClassList.WARRIOR.getId()));
+        CustomNetworkManager.sendToServer(new ChangeClassPacket(BasicClasses.WARRIOR.getId()));
         assert Minecraft.getInstance().player != null;
         Minecraft.getInstance().player.closeScreen();
     }
 
     private void handleChooseMageButton() {
-        //CustomNetworkManager.sendToServer(new ChangeClassPacket(UserClassList.MAGE.getId()));
+        CustomNetworkManager.sendToServer(new ChangeClassPacket(BasicClasses.CASTER.getId()));
         assert Minecraft.getInstance().player != null;
         Minecraft.getInstance().player.closeScreen();
     }
 
     private void handleChooseScoutButton() {
-        //CustomNetworkManager.sendToServer(new ChangeClassPacket(UserClassList.SCOUT.getId()));
-        assert Minecraft.getInstance().player != null;
-        Minecraft.getInstance().player.closeScreen();
-    }
-
-    private void handleChoosePriestButton() {
-        //CustomNetworkManager.sendToServer(new ChangeClassPacket(UserClassList.PRIEST.getId()));
+        CustomNetworkManager.sendToServer(new ChangeClassPacket(BasicClasses.HUNTER.getId()));
         assert Minecraft.getInstance().player != null;
         Minecraft.getInstance().player.closeScreen();
     }
