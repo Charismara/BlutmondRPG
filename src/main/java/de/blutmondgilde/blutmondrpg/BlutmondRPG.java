@@ -1,6 +1,7 @@
 package de.blutmondgilde.blutmondrpg;
 
 import de.blutmondgilde.blutmondrpg.capabilities.CustomCapabilityManager;
+import de.blutmondgilde.blutmondrpg.handler.PlayerHandler;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraftforge.common.MinecraftForge;
@@ -15,6 +16,7 @@ public class BlutmondRPG {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new CustomCapabilityManager());
+        MinecraftForge.EVENT_BUS.register(new PlayerHandler());
     }
 
     private void setup(final FMLCommonSetupEvent event) {

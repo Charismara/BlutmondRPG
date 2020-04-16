@@ -40,7 +40,7 @@ public class CustomNetworkManager {
         send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), message);
     }
 
-    public static void syncPlayer(PlayerEntity player, IModClass capability) {
+    private static void syncPlayer(PlayerEntity player, IModClass capability) {
         //sendToPlayer(new SyncPlayerUserClassPacket(player, capability), player);
     }
 
