@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassProvider;
 import de.blutmondgilde.blutmondrpg.enums.BasicClasses;
+import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import de.blutmondgilde.blutmondrpg.util.RenderHelper;
 import net.minecraft.client.Minecraft;
@@ -17,15 +18,10 @@ public class ClassOverlay extends AbstractGui {
     private int screenWidth;
     private int screenHeight;
     private Minecraft client;
-    private static final ResourceLocation CLASS_ICON_ATLAS = new ResourceLocation(Ref.MOD_ID, "textures/atlas/classiconatlas.png");
     private static final ResourceLocation CLASS_ICON_WARRIOR = new ResourceLocation(Ref.MOD_ID, "textures/icons/warrior.png");
     private static final ResourceLocation CLASS_ICON_MAGE = new ResourceLocation(Ref.MOD_ID, "textures/icons/mage.png");
     private static final ResourceLocation CLASS_ICON_SCOUT = new ResourceLocation(Ref.MOD_ID, "textures/icons/scout.png");
     private static final ResourceLocation CLASS_ICON_PRIEST = new ResourceLocation(Ref.MOD_ID, "textures/icons/priest.png");
-    private static final ResourceLocation CLASS_ICON_WARRIOR_LOW = new ResourceLocation(Ref.MOD_ID, "textures/icons/128/warrior.png");
-    private static final ResourceLocation CLASS_ICON_MAGE_LOW = new ResourceLocation(Ref.MOD_ID, "textures/icons/128/mage.png");
-    private static final ResourceLocation CLASS_ICON_SCOUT_LOW = new ResourceLocation(Ref.MOD_ID, "textures/icons/128/scout.png");
-    private static final ResourceLocation CLASS_ICON_PRIEST_LOW = new ResourceLocation(Ref.MOD_ID, "textures/icons/128/priest.png");
     private static final ResourceLocation BAR_ATLAS = new ResourceLocation(Ref.MOD_ID, "textures/gui/bars.png");
     private IModClass capability;
     private BasicClasses userClass;
@@ -43,10 +39,6 @@ public class ClassOverlay extends AbstractGui {
         }
     }
 
-    public void setManaAlpha(float manaAlpha) {
-        this.manaAlpha = manaAlpha;
-    }
-
     public void render() {
         if (capability == null) return;
 
@@ -55,7 +47,9 @@ public class ClassOverlay extends AbstractGui {
 
         try {
             if (!capability.getBasicClass().equals(BasicClasses.NONE)) {
-                //Render Class Icon
+                renderClassIconBg();
+                renderClassExp();
+                renderClassIcon();
             }
             renderHPBarBackground();
             renderHPBar();
@@ -70,6 +64,111 @@ public class ClassOverlay extends AbstractGui {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    private void renderClassExp() {
+        final int x = 1;
+        final int w = 64;
+        final int h = getClassExpHeight();
+        final int y = getClassExpY(h);
+        final int yTexStart = getClassExpYTextureStart();
+        final int texHeight = getClassExpTextureHeight();
+        final ResourceLocation overlayBg = new ResourceLocation(Ref.MOD_ID, "textures/icons/overlaybg.png");
+
+        this.client.getTextureManager().bindTexture(overlayBg);
+        GlStateManager.bindTexture(this.client.textureManager.getTexture(overlayBg).getGlTextureId());
+
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        RenderHelper.drawTextureWithColor(x, y, 0, 0, yTexStart, w, h, 256, texHeight, new Color(0, 156, 0, 192));
+        GlStateManager.disableBlend();
+        GlStateManager.color4f(1, 1, 1, 1);
+    }
+
+    private int getClassExpHeight() {
+        float h = 64;
+        if (capability.getClassLevel().getId() + 1 == ClassLevel.getMaxLevel().getId()) return Math.round(h);
+        //double exp = capability.getClassLevel().getExp();
+        double exp = 3;
+        double percent = 100 / ClassLevel.getLevelFromId(capability.getClassLevel().getId() + 1).getExp() * exp;
+
+        return (int) Math.round(h * (percent / 100.0F));
+    }
+
+    private int getClassExpYTextureStart() {
+        float h = 256;
+        if (capability.getClassLevel().getId() + 1 == ClassLevel.getMaxLevel().getId()) return Math.round(h);
+        double exp = capability.getClassLevel().getExp();
+        double percent = 100 / ClassLevel.getLevelFromId(capability.getClassLevel().getId() + 1).getExp() * exp;
+        float result = Math.round(h * (percent / 100.0F));
+        h = 256 - result;
+
+        return Math.round(h);
+    }
+
+    private int getClassExpTextureHeight() {
+        float h = 256;
+        if (capability.getClassLevel().getId() + 1 == ClassLevel.getMaxLevel().getId()) return Math.round(h);
+        double exp = capability.getClassLevel().getExp();
+        double percent = 100 / ClassLevel.getLevelFromId(capability.getClassLevel().getId() + 1).getExp() * exp;
+        float result = Math.round(h * (percent / 100.0F));
+        h = 256 - result;
+        int textureHeight = Math.round(h);
+
+        return 256 - textureHeight;
+    }
+
+    private int getClassExpY(int width) {
+        return 65 - width;
+    }
+
+    private void renderClassIconBg() {
+        final int x = 0;
+        final int y = 0;
+        final int w = 66;
+        final int h = 66;
+        final ResourceLocation overlayBg = new ResourceLocation(Ref.MOD_ID, "textures/icons/overlaybg.png");
+
+        this.client.getTextureManager().bindTexture(overlayBg);
+        GlStateManager.bindTexture(this.client.textureManager.getTexture(overlayBg).getGlTextureId());
+
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderHelper.drawTextureWithColor(x, y, 0, 0, 0, w, h, 256, 256, new Color(39, 39, 39, 192));
+        GlStateManager.disableBlend();
+        GlStateManager.color4f(1, 1, 1, 1);
+    }
+
+    private void renderClassIcon() {
+        final int x = 16;
+        final int y = 16;
+        final int w = 32;
+        final int h = 32;
+
+        final ResourceLocation classIcon = getClassIcon();
+
+        this.client.getTextureManager().bindTexture(classIcon);
+        GlStateManager.bindTexture(this.client.textureManager.getTexture(classIcon).getGlTextureId());
+
+        GlStateManager.enableBlend();
+        GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderHelper.drawTextureWithColor(x, y, 0, 0, 0, w, h, 256, 256, new Color(39, 39, 39, 192));
+        GlStateManager.disableBlend();
+        GlStateManager.color4f(1, 1, 1, 1);
+    }
+
+    private ResourceLocation getClassIcon() {
+        switch (this.capability.getBasicClass()) {
+            case WARRIOR:
+                return CLASS_ICON_WARRIOR;
+            case CASTER:
+                return CLASS_ICON_MAGE;
+            case HUNTER:
+                return CLASS_ICON_SCOUT;
+            default:
+                throw new IllegalStateException("Tried to render class icon without class.");
         }
     }
 
