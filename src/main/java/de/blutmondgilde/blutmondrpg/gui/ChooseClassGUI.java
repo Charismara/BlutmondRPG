@@ -16,10 +16,10 @@ public class ChooseClassGUI extends Screen {
             16,
             64,
             64,
-            128,
             0,
-            64,
-            new ResourceLocation(Ref.MOD_ID, "textures/gui/basic_classes_icons.png"),
+            0,
+            129,
+            new ResourceLocation(Ref.MOD_ID, "textures/gui/warrior.png"),
             (Client) -> handleChooseWarriorButton()
     );
     private BaseImageButton chooseMageButton = new BaseImageButton(
@@ -29,8 +29,8 @@ public class ChooseClassGUI extends Screen {
             64,
             0,
             0,
-            64,
-            new ResourceLocation(Ref.MOD_ID, "textures/gui/basic_classes_icons.png"),
+            129,
+            new ResourceLocation(Ref.MOD_ID, "textures/gui/mage.png"),
             (Client) -> handleChooseMageButton()
     );
     private BaseImageButton chooseScoutButton = new BaseImageButton(
@@ -38,10 +38,10 @@ public class ChooseClassGUI extends Screen {
             16,
             64,
             64,
-            192,
             0,
-            64,
-            new ResourceLocation(Ref.MOD_ID, "textures/gui/basic_classes_icons.png"),
+            0,
+            129,
+            new ResourceLocation(Ref.MOD_ID, "textures/gui/scout.png"),
             (Client) -> handleChooseScoutButton()
     );
 
@@ -56,6 +56,7 @@ public class ChooseClassGUI extends Screen {
         addButton(chooseWarriorButton);
         addButton(chooseMageButton);
         addButton(chooseScoutButton);
+
     }
 
     @Override
