@@ -19,7 +19,7 @@ public class PlayerHandler {
     private static final UUID MODIFIER_ID = UUID.fromString("2fcc35d1-3f05-40f0-8aa5-2931d714e8b6");
 
     @SubscribeEvent
-    public void onPlayerJoin(final PlayerEvent.PlayerLoggedInEvent e) {
+    public void chooseClassOnFirstLogIn(final PlayerEvent.PlayerLoggedInEvent e) {
         final IModClass cap = e.getPlayer().getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("ModClass Capability is invalid!"));
         if (cap.getBasicClass().equals(BasicClasses.NONE)) {
             CustomNetworkManager.sendToPlayer(new OpenChooseGuiPacket(), e.getPlayer());
@@ -45,5 +45,29 @@ public class PlayerHandler {
         if (heal) {
             player.setHealth(player.getMaxHealth());
         }
+    }
+
+    @SubscribeEvent
+    public void syncOnLogIn(final PlayerEvent.PlayerLoggedInEvent e) {
+        CustomNetworkManager.syncPlayer(e.getPlayer());
+    }
+
+    @SubscribeEvent
+    public void reAttachOldDataOnRespawn(final PlayerEvent.Clone e) {
+        if (!e.isWasDeath()) return;
+        final PlayerEntity oldEntity = e.getOriginal();
+        final IModClass oldCapability = oldEntity.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading the original Capabilities of " + oldEntity.getDisplayName().getString()));
+        final PlayerEntity newEntity = e.getPlayer();
+        final IModClass newCapability = newEntity.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading the new Capabilities of " + newEntity.getDisplayName().getString()));
+
+        newCapability.setBasicClass(oldCapability.getBasicClass());
+        newCapability.setMaxHP(oldCapability.getMaxHP());
+        newCapability.setMaxMana(oldCapability.getMaxMana());
+        newCapability.setClassLevel(oldCapability.getClassLevel());
+        newCapability.setClassExp(oldCapability.getClassExp());
+        newCapability.setCurrentMana(0);
+        newEntity.setHealth(newCapability.getMaxHP());
+
+        CustomNetworkManager.syncPlayer(newEntity);
     }
 }
