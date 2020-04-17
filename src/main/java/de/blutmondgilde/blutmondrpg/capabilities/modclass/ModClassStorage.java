@@ -31,7 +31,7 @@ public class ModClassStorage implements Capability.IStorage<IModClass> {
         instance.setClassLevel(tag.getInt("modClassLevelId"));
         instance.setClassExp(tag.getDouble("modClassExp"));
         instance.setMaxHP(tag.getFloat("modMaxHp"));
-        instance.setMaxHP(tag.getFloat("modMaxMana"));
+        instance.setMaxMana(tag.getFloat("modMaxMana"));
         instance.setCurrentMana(tag.getFloat("modCurrenMana"));
     }
 }
