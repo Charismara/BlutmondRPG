@@ -4,6 +4,7 @@ import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassProvider;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.network.OpenChooseGuiPacket;
+import de.blutmondgilde.blutmondrpg.network.SyncClassDataPacket;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.Event;
@@ -15,7 +16,7 @@ public class ChangePlayerClassEvent extends Event {
 
         Ref.LOGGER.debug("Running ChangePlayerClassEvent");
 
-        CustomNetworkManager.syncPlayer(player);
+        CustomNetworkManager.sendToPlayer(new SyncClassDataPacket(player, cap, true), player);
         if (classId != -1) return;
         CustomNetworkManager.sendToPlayer(new OpenChooseGuiPacket(), player);
     }

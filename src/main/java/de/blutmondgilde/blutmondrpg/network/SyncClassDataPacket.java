@@ -22,9 +22,9 @@ public class SyncClassDataPacket {
     private float maxMana;
     private float mana;
 
-    public SyncClassDataPacket(PlayerEntity playerEntity, IModClass cap, boolean heal) {
-        this(playerEntity.getUniqueID(), cap.getBasicClass().getId(), cap.getClassLevel().getId(), cap.getClassExp(), cap.getMaxHP(), cap.getMaxMana(), cap.getCurrentMana());
-        PlayerHandler.applyHP(playerEntity, cap.getMaxHP() - playerEntity.getAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue(), heal);
+    public SyncClassDataPacket(PlayerEntity player, IModClass cap, boolean heal) {
+        this(player.getUniqueID(), cap.getBasicClass().getId(), cap.getClassLevel().getId(), cap.getClassExp(), cap.getMaxHP(), cap.getMaxMana(), cap.getCurrentMana());
+        PlayerHandler.applyHP(player, cap.getMaxHP() - player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).getBaseValue(), heal);
     }
 
     public SyncClassDataPacket(PlayerEntity playerEntity, IModClass cap) {

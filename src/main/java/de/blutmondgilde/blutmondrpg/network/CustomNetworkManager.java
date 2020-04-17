@@ -38,7 +38,7 @@ public class CustomNetworkManager {
         HANDLER.sendToServer(message);
     }
 
-    public static <MSG> void sendToPlayer(MSG message, PlayerEntity player) {
+    public static <MSG> void sendToPlayer(MSG message, final PlayerEntity player) {
         send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), message);
     }
 
