@@ -3,10 +3,10 @@ package de.blutmondgilde.blutmondrpg.enums;
 import java.util.List;
 
 public enum BasicClasses {
-    WARRIOR(0, 10, 2, ArmorTypes.HEAVY, ClassWeapons.WARRIOR, 0, 2, 0.5F, 1, 0, 0, 0, 0),
-    HUNTER(1, 8, 1, ArmorTypes.MIDDLE, ClassWeapons.HUNTER, 0, 1.5F, 1, 0.75F, 0.5F, 0.5F, 2, 1),
-    CASTER(2, 5, 0, ArmorTypes.LIGHT, ClassWeapons.CASTER, 5, 1, 2, 0.5F, 2, 2, 0, 0),
-    NONE(-1, 2, 0, ArmorTypes.NONE, ClassWeapons.NONE,0,0,0,0,0,0,0,0);
+    WARRIOR(0, 10, 2, ArmorTypes.HEAVY, ClassWeapons.WARRIOR, 0, 3, 0.5F, 1, 0, 0, 0, 0),
+    HUNTER(1, 8, 1, ArmorTypes.MIDDLE, ClassWeapons.HUNTER, 0, 2, 1, 0.75F, 0.5F, 0.5F, 2, 1),
+    CASTER(2, 5, 0, ArmorTypes.LIGHT, ClassWeapons.CASTER, 5, 1.5F, 2, 0.5F, 2, 2, 0, 0),
+    NONE(-1, 2, 0, ArmorTypes.NONE, ClassWeapons.NONE, 0, 0, 0, 0, 0, 0, 0, 0);
 
     private int id;
     private float baseHP, baseMeleeDamage, baseMana, hpOnLevelUp, manaOnLevelUp, meleeDamageOnLevelUp, baseMagicalDamage, magicalDamageOnLevelUp, baseBowDamage, bowDamageOnLevelUp;
