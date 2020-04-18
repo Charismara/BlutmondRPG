@@ -6,6 +6,7 @@ import de.blutmondgilde.blutmondrpg.handler.PlayerHandler;
 import de.blutmondgilde.blutmondrpg.handler.RenderHandler;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.util.Ref;
+import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -14,6 +15,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(Ref.MOD_ID)
 public class BlutmondRPG {
+    private static MinecraftServer minecraftServer;
 
     public BlutmondRPG() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -33,5 +35,10 @@ public class BlutmondRPG {
 
     private void serverSetup(final FMLServerStartingEvent e) {
         CommandManager.init(e.getCommandDispatcher());
+        minecraftServer = e.getServer();
+    }
+
+    public static MinecraftServer getMinecraftServer() {
+        return minecraftServer;
     }
 }
