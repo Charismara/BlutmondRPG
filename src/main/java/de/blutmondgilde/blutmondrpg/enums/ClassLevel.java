@@ -1,33 +1,39 @@
 package de.blutmondgilde.blutmondrpg.enums;
 
 public enum ClassLevel {
-    L1(1, 0),
-    L2(2, L1.getExp() + 5),
-    L3(3, L2.getExp() + 5),
-    L4(4, L3.getExp() + 5),
-    L5(5, L4.getExp() + 10),
-    L6(6, L5.getExp() + 15),
-    L7(7, L6.getExp() + 20),
-    L8(8, L7.getExp() + 25),
-    L9(9, L8.getExp() + 30),
-    L10(10, L9.getExp() + 35),
-    L11(11, L10.getExp() + 40),
-    L12(12, L11.getExp() + 45),
-    L13(13, L12.getExp() + 50),
-    L14(14, L13.getExp() + 55),
-    L15(15, L14.getExp() + 60),
-    L16(16, L15.getExp() + 65),
-    L17(17, L16.getExp() + 70),
-    L18(18, L17.getExp() + 75),
-    L19(19, L18.getExp() + 80),
-    L20(20, L19.getExp() + 85); //775 EXP von 19 --> 20
+
+    L1(1, 100),
+    L2(2, L1.getExp() * L1.getScaling()),
+    L3(3, L2.getExp() * L1.getScaling()),
+    L4(4, L3.getExp() * L1.getScaling()),
+    L5(5, L4.getExp() * L1.getScaling()),
+    L6(6, L5.getExp() * L1.getScaling()),
+    L7(7, L6.getExp() * L1.getScaling()),
+    L8(8, L7.getExp() * L1.getScaling()),
+    L9(9, L8.getExp() * L1.getScaling()),
+    L10(10, L9.getExp() * L1.getScaling()),
+    L11(11, L10.getExp() * L1.getScaling()),
+    L12(12, L11.getExp() * L1.getScaling()),
+    L13(13, L12.getExp() * L1.getScaling()),
+    L14(14, L13.getExp() * L1.getScaling()),
+    L15(15, L14.getExp() * L1.getScaling()),
+    L16(16, L15.getExp() * L1.getScaling()),
+    L17(17, L16.getExp() * L1.getScaling()),
+    L18(18, L17.getExp() * L1.getScaling()),
+    L19(19, L18.getExp() * L1.getScaling()),
+    L20(20, L19.getExp() * L1.getScaling()); //6000 Exp
 
     private int id;
     private double exp;
 
+
     ClassLevel(int id, double exp) {
         this.id = id;
         this.exp = exp;
+    }
+
+    private double getScaling() {
+        return 3;
     }
 
     public int getId() {
