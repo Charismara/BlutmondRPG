@@ -3,30 +3,30 @@ package de.blutmondgilde.blutmondrpg.enums;
 import java.util.List;
 
 public enum BasicClasses {
-    WARRIOR(0, 20, 2, ArmorTypes.HEAVY, ClassWeapons.WARRIOR, 0, 1.0F, 0, 1, 0, 0, 0, 0),
-    HUNTER(1, 15, 1, ArmorTypes.MIDDLE, ClassWeapons.HUNTER, 0, 0.75F, 1, 0.75F, 0.5F, 0.5F, 2, 1),
-    CASTER(2, 10, 0, ArmorTypes.LIGHT, ClassWeapons.CASTER, 5, 0.95F, 2, 0.5F, 2, 2, 0, 0),
+    WARRIOR(0, 20, 8, ArmorTypes.HEAVY, ClassWeapons.WARRIOR, 0, 1.0F, 0, 1.05F, 0, 0, 0, 0),
+    HUNTER(1, 15, 5, ArmorTypes.MIDDLE, ClassWeapons.HUNTER, 100, 0.75F, 0.55F, 0.7F, 5.0F, 0.6F, 5.0F, 1.0F),
+    CASTER(2, 10, 0, ArmorTypes.LIGHT, ClassWeapons.CASTER, 150, 0.95F, 1.0F, 0.0F, 8, 1.45F, 0, 0),
     NONE(-1, 2, 0, ArmorTypes.NONE, ClassWeapons.NONE, 0, 0, 0, 0, 0, 0, 0, 0);
 
-    private int id;
-    private float baseHP, baseMeleeDamage, baseMana, hpOnLevelUp, manaOnLevelUp, meleeDamageOnLevelUp, baseMagicalDamage, magicalDamageOnLevelUp, baseBowDamage, bowDamageOnLevelUp;
-    private ArmorTypes armorType;
-    private List<WeaponTypes> weaponTypes;
+    private final int id;
+    private final float baseHP, baseMeleeDamage, baseMana, hpScaling, manaScaling, meleeScaling, baseMagicalDamage, magicDamageScaling, baseBowDamage, bowDamageScaling;
+    private final ArmorTypes armorType;
+    private final List<WeaponTypes> weaponTypes;
 
-    BasicClasses(int id, float baseHP, float baseMeleeDamage, ArmorTypes armorType, ClassWeapons useableWeapons, float baseMana, float hpOnLevelUp, float manaOnLevelUp, float meleeDamageOnLevelUp, float baseMagicalDamage, float magicalDamageOnLevelUp, float baseBowDamage, float bowDamageOnLevelUp) {
+    BasicClasses(int id, float baseHP, float baseMeleeDamage, ArmorTypes armorType, ClassWeapons useableWeapons, float baseMana, float hpScaling, float manaScaling, float meleeScaling, float baseMagicalDamage, float magicDamageScaling, float baseBowDamage, float bowDamageScaling) {
         this.id = id;
         this.baseHP = baseHP;
         this.baseMeleeDamage = baseMeleeDamage;
         this.armorType = armorType;
         this.weaponTypes = useableWeapons.getWeapons();
         this.baseMana = baseMana;
-        this.hpOnLevelUp = hpOnLevelUp;
-        this.manaOnLevelUp = manaOnLevelUp;
-        this.meleeDamageOnLevelUp = meleeDamageOnLevelUp;
+        this.hpScaling = hpScaling;
+        this.manaScaling = manaScaling;
+        this.meleeScaling = meleeScaling;
         this.baseMagicalDamage = baseMagicalDamage;
-        this.magicalDamageOnLevelUp = magicalDamageOnLevelUp;
+        this.magicDamageScaling = magicDamageScaling;
         this.baseBowDamage = baseBowDamage;
-        this.bowDamageOnLevelUp = bowDamageOnLevelUp;
+        this.bowDamageScaling = bowDamageScaling;
     }
 
     public int getId() {
@@ -84,23 +84,23 @@ public enum BasicClasses {
         return baseMana;
     }
 
-    public float getBowDamageOnLevelUp() {
-        return bowDamageOnLevelUp;
+    public float getBowDamageScaling() {
+        return bowDamageScaling;
     }
 
-    public float getHpOnLevelUp() {
-        return hpOnLevelUp;
+    public float getHpScaling() {
+        return hpScaling;
     }
 
-    public float getMagicalDamageOnLevelUp() {
-        return magicalDamageOnLevelUp;
+    public float getMagicDamageScaling() {
+        return magicDamageScaling;
     }
 
-    public float getManaOnLevelUp() {
-        return manaOnLevelUp;
+    public float getManaScaling() {
+        return manaScaling;
     }
 
-    public float getMeleeDamageOnLevelUp() {
-        return meleeDamageOnLevelUp;
+    public float getMeleeScaling() {
+        return meleeScaling;
     }
 }
