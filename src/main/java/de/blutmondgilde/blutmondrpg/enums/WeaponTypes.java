@@ -10,9 +10,9 @@ public enum WeaponTypes {
     KNIFE(6),
     STAFF(7);
 
-    private int id;
+    private final int id;
 
-    WeaponTypes(int id){
+    WeaponTypes(final int id) {
         this.id = id;
     }
 

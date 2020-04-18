@@ -6,8 +6,8 @@ public enum ArmorTypes {
     MIDDLE(2),
     HEAVY(3);
 
-    private int id;
-    ArmorTypes(int id){
+    private final int id;
+    ArmorTypes( final int id){
         this.id = id;
     }
 

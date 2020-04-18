@@ -23,11 +23,11 @@ public enum ClassLevel {
     L19(19, L18.getExp() * L1.getScaling()),
     L20(20, L19.getExp() * L1.getScaling()); //6000 Exp
 
-    private int id;
-    private double exp;
+    private final int id;
+    private final double exp;
 
 
-    ClassLevel(int id, double exp) {
+    ClassLevel(final int id, final double exp) {
         this.id = id;
         this.exp = exp;
     }

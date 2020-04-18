@@ -13,7 +13,7 @@ public enum BasicClasses {
     private final ArmorTypes armorType;
     private final List<WeaponTypes> weaponTypes;
 
-    BasicClasses(int id, float baseHP, float baseMeleeDamage, ArmorTypes armorType, ClassWeapons useableWeapons, float baseMana, float hpScaling, float manaScaling, float meleeScaling, float baseMagicalDamage, float magicDamageScaling, float baseBowDamage, float bowDamageScaling) {
+    BasicClasses(final int id, final float baseHP, final float baseMeleeDamage, final ArmorTypes armorType, final ClassWeapons useableWeapons, final float baseMana, final float hpScaling, final float manaScaling, final float meleeScaling, final float baseMagicalDamage, final float magicDamageScaling, final float baseBowDamage, final float bowDamageScaling) {
         this.id = id;
         this.baseHP = baseHP;
         this.baseMeleeDamage = baseMeleeDamage;
