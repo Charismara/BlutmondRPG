@@ -56,7 +56,6 @@ public class CustomCapabilityManager {
         if (!(e.getObject() instanceof MonsterEntity)) return;
 
         e.addCapability(new ResourceLocation(Ref.MOD_ID, "mobscalingdata"), new MobScalingProvider());
-        Ref.LOGGER.debug("Attached Mob Capability to " + e.getObject().getType().getRegistryName());
         //TODO Attach mob stats to mob
     }
 
@@ -89,8 +88,6 @@ public class CustomCapabilityManager {
 
         IMobScaling monsterCap = entity.getCapability(MobScalingProvider.MOB_SCLAING_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading MonsterEntity Capability. MonsterEntity: " + entity.getType().getRegistryName()));
         monsterCap.setClosestPlayer(highestLevelPlayer);
-
-        Ref.LOGGER.debug("Added Player Information from " + highestLevelPlayer.getName().getString() + " to " + entity.getType().getRegistryName());
     }
 
     private double getDistance(BlockPos start, BlockPos end) {

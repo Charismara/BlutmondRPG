@@ -46,7 +46,8 @@ public class RenderHandler {
         } catch (Exception ignore) {
             manaDisplayAlpha = 1.0F;
         }
-        ClassOverlay classOverlay = new ClassOverlay(Minecraft.getInstance(), manaDisplayAlpha);
+        IModClass cap = Minecraft.getInstance().player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Can't get local player capability"));
+        ClassOverlay classOverlay = new ClassOverlay(Minecraft.getInstance(), manaDisplayAlpha, cap);
         classOverlay.render();
     }
 }

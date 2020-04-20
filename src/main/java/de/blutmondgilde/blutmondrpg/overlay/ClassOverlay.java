@@ -2,7 +2,6 @@ package de.blutmondgilde.blutmondrpg.overlay;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
-import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassProvider;
 import de.blutmondgilde.blutmondrpg.enums.BasicClasses;
 import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
 import de.blutmondgilde.blutmondrpg.util.Ref;
@@ -17,24 +16,21 @@ import java.awt.*;
 public class ClassOverlay extends AbstractGui {
     private int screenWidth;
     private int screenHeight;
-    private Minecraft client;
+    private final Minecraft client;
     private static final ResourceLocation CLASS_ICON_WARRIOR = new ResourceLocation(Ref.MOD_ID, "textures/icons/warrior.png");
     private static final ResourceLocation CLASS_ICON_MAGE = new ResourceLocation(Ref.MOD_ID, "textures/icons/mage.png");
     private static final ResourceLocation CLASS_ICON_SCOUT = new ResourceLocation(Ref.MOD_ID, "textures/icons/scout.png");
-    private static final ResourceLocation CLASS_ICON_PRIEST = new ResourceLocation(Ref.MOD_ID, "textures/icons/priest.png");
     private static final ResourceLocation BAR_ATLAS = new ResourceLocation(Ref.MOD_ID, "textures/gui/bars.png");
     private IModClass capability;
-    private BasicClasses userClass;
     private int satBgPos;
     private float manaAlpha;
     private int manaBgPos;
 
-    public ClassOverlay(Minecraft minecraft, float manaAlpha) {
+    public ClassOverlay(Minecraft minecraft, float manaAlpha, IModClass capability) {
         this.client = minecraft;
         try {
-            this.capability = this.client.player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Capability"));
             this.manaAlpha = manaAlpha;
-
+            this.capability = capability;
         } catch (Exception ignore) {
         }
     }
@@ -64,7 +60,6 @@ public class ClassOverlay extends AbstractGui {
             renderManaBarBackground();
             renderManaBar();
 
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -79,8 +74,8 @@ public class ClassOverlay extends AbstractGui {
         final int w = 64;
         final int h = getClassExpHeight();
         final int y = getClassExpY(h);
-        final int yTexStart = getClassExpYTextureStart();
-        final int texHeight = getClassExpTextureHeight();
+        final int yTexStart = getClassExpYTextureStart(h);
+        final int texHeight = getClassExpTextureHeight(yTexStart);
         final ResourceLocation overlayBg = new ResourceLocation(Ref.MOD_ID, "textures/icons/overlaybg.png");
 
         this.client.getTextureManager().bindTexture(overlayBg);
@@ -96,39 +91,22 @@ public class ClassOverlay extends AbstractGui {
 
     private int getClassExpHeight() {
         float h = 64;
-        if (capability.getClassLevel().getId() + 1 == ClassLevel.getMaxLevel().getId()) return Math.round(h);
-        //double exp = capability.getClassLevel().getExp();
-        double exp = 3;
+        double exp = capability.getClassExp();
         double percent = 100 / ClassLevel.getLevelFromId(capability.getClassLevel().getId() + 1).getExp() * exp;
-
         return (int) Math.round(h * (percent / 100.0F));
     }
 
-    private int getClassExpYTextureStart() {
-        float h = 256;
-        if (capability.getClassLevel().getId() + 1 == ClassLevel.getMaxLevel().getId()) return Math.round(h);
-        double exp = capability.getClassLevel().getExp();
-        double percent = 100 / ClassLevel.getLevelFromId(capability.getClassLevel().getId() + 1).getExp() * exp;
-        float result = Math.round(h * (percent / 100.0F));
-        h = 256 - result;
-
+    private int getClassExpYTextureStart(int height) {
+        float h = 256 - (height * 4);
         return Math.round(h);
     }
 
-    private int getClassExpTextureHeight() {
-        float h = 256;
-        if (capability.getClassLevel().getId() + 1 == ClassLevel.getMaxLevel().getId()) return Math.round(h);
-        double exp = capability.getClassLevel().getExp();
-        double percent = 100 / ClassLevel.getLevelFromId(capability.getClassLevel().getId() + 1).getExp() * exp;
-        float result = Math.round(h * (percent / 100.0F));
-        h = 256 - result;
-        int textureHeight = Math.round(h);
-
-        return 256 - textureHeight;
+    private int getClassExpTextureHeight(int start) {
+        return 256 - start;
     }
 
-    private int getClassExpY(int width) {
-        return 65 - width;
+    private int getClassExpY(int height) {
+        return 65 - height;
     }
 
     private void renderClassIconBg() {
