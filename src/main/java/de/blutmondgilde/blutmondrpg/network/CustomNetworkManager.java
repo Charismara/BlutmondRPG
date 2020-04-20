@@ -2,6 +2,7 @@ package de.blutmondgilde.blutmondrpg.network;
 
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassProvider;
+import de.blutmondgilde.blutmondrpg.capabilities.party.GroupProvider;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -26,7 +27,9 @@ public class CustomNetworkManager {
         HANDLER.registerMessage(disc++, OpenChooseGuiPacket.class, OpenChooseGuiPacket::encode, OpenChooseGuiPacket::decode, OpenChooseGuiPacket.Handler::handle);
         HANDLER.registerMessage(disc++, ChangeClassPacket.class, ChangeClassPacket::encode, ChangeClassPacket::decode, ChangeClassPacket.Handler::handle);
         HANDLER.registerMessage(disc++, SyncClassDataPacket.class, SyncClassDataPacket::encode, SyncClassDataPacket::decode, SyncClassDataPacket.Handler::handle);
+        HANDLER.registerMessage(disc++, SyncGroupDataPacket.class, SyncGroupDataPacket::encode, SyncGroupDataPacket::decode, SyncGroupDataPacket.Handler::handle);
 
+        Ref.LOGGER.debug("Registered " + disc + " new network packets.");
     }
 
     public static <MSG> void send(PacketDistributor.PacketTarget target, MSG message) {
@@ -46,7 +49,11 @@ public class CustomNetworkManager {
         sendToPlayer(new SyncClassDataPacket(player, capability), player);
     }
 
-    public static void syncPlayer(PlayerEntity player) {
-        syncPlayer(player, player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while syncing Playerdata")));
+    public static void syncPlayerClass(PlayerEntity player) {
+        syncPlayer(player, player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exception while syncing Playerdata")));
+    }
+
+    public static void syncPlayerGroup(PlayerEntity player) {
+        sendToPlayer(new SyncGroupDataPacket(player.getCapability(GroupProvider.GROUP_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exception while syncing Groupdata"))), player);
     }
 }

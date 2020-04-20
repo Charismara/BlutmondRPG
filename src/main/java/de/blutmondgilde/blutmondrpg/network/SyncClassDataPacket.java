@@ -14,13 +14,13 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 public class SyncClassDataPacket {
-    private UUID uuid;
-    private int basicClassId;
-    private int classLevelId;
-    private double classExp;
-    private float maxHP;
-    private float maxMana;
-    private float mana;
+    private final UUID uuid;
+    private final int basicClassId;
+    private final int classLevelId;
+    private final double classExp;
+    private final float maxHP;
+    private final float maxMana;
+    private final float mana;
 
     public SyncClassDataPacket(PlayerEntity player, IModClass cap, boolean heal) {
         this(player.getUniqueID(), cap.getBasicClass().getId(), cap.getClassLevel().getId(), cap.getClassExp(), cap.getMaxHP(), cap.getMaxMana(), cap.getCurrentMana());

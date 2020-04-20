@@ -49,7 +49,7 @@ public class PlayerHandler {
 
     @SubscribeEvent
     public void syncOnLogIn(final PlayerEvent.PlayerLoggedInEvent e) {
-        CustomNetworkManager.syncPlayer(e.getPlayer());
+        CustomNetworkManager.syncPlayerClass(e.getPlayer());
     }
 
     @SubscribeEvent
@@ -68,6 +68,6 @@ public class PlayerHandler {
         newCapability.setCurrentMana(0);
         newEntity.setHealth(newCapability.getMaxHP());
 
-        CustomNetworkManager.syncPlayer(newEntity);
+        CustomNetworkManager.syncPlayerClass(newEntity);
     }
 }

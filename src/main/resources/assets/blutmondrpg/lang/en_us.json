@@ -1,0 +1,17 @@
+{
+  "blutmondrpg.command.group.invite.request": "You got an group invitation from ",
+  "blutmondrpg.command.group.invite.request.accept": "[Accept]",
+  "blutmondrpg.command.group.invite.request.accept.hover": "Click to join the group",
+  "blutmondrpg.command.group.invite.request.deny": "[Deny]",
+  "blutmondrpg.command.group.invite.request.deny.hover": "Click to deny the invitation",
+  "blutmondrpg.command.group.information.partyleader": "Leader",
+  "blutmondrpg.command.group.information.member": "Members",
+  "blutmondrpg.command.group.information.header": "Group Information",
+  "blutmondrpg.command.group.answer.yes.target": "You joined the Group",
+  "blutmondrpg.command.group.answer.yes.sender": "joined the Group",
+  "blutmondrpg.command.group.answer.no.target": "You denied the Group invitation",
+  "blutmondrpg.command.group.answer.no.sender": "denied the Group invitation",
+  "blutmondrpg.command.group.invite.self": "You can't invite yourself.",
+  "blutmondrpg.command.group.kicked.successful": "has been kicked from the group.",
+  "blutmondrpg.command.group.kicked": "You have been kick out of the group."
+}

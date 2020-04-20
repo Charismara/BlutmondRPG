@@ -9,7 +9,13 @@ import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClass;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassProvider;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassStorage;
+import de.blutmondgilde.blutmondrpg.capabilities.party.Group;
+import de.blutmondgilde.blutmondrpg.capabilities.party.GroupProvider;
+import de.blutmondgilde.blutmondrpg.capabilities.party.GroupStorage;
+import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
 import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
+import de.blutmondgilde.blutmondrpg.event.GainExpEvent;
+import de.blutmondgilde.blutmondrpg.event.GroupPlayerLeaveEvent;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -17,10 +23,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
@@ -29,6 +38,7 @@ public class CustomCapabilityManager {
     public static void registerCapabilities() {
         CapabilityManager.INSTANCE.register(IModClass.class, new ModClassStorage(), ModClass::new);
         CapabilityManager.INSTANCE.register(IMobScaling.class, new MobScalingStorage(), MobScaling::new);
+        CapabilityManager.INSTANCE.register(IGroup.class, new GroupStorage(), Group::new);
     }
 
     @SubscribeEvent
@@ -38,7 +48,6 @@ public class CustomCapabilityManager {
         if (player instanceof FakePlayer) return;
 
         e.addCapability(new ResourceLocation(Ref.MOD_ID, "modclassdata"), new ModClassProvider());
-
         Ref.LOGGER.debug("Added Class Information to Player: " + player.getUniqueID().toString());
     }
 
@@ -51,8 +60,19 @@ public class CustomCapabilityManager {
     }
 
     @SubscribeEvent
+    public void onAttachGroupCapabilities(final AttachCapabilitiesEvent<Entity> e) {
+        if (!(e.getObject() instanceof PlayerEntity)) return;
+        final PlayerEntity player = (PlayerEntity) e.getObject();
+        if (player instanceof FakePlayer) return;
+
+        e.addCapability(new ResourceLocation(Ref.MOD_ID, "groupdata"), new GroupProvider());
+        Ref.LOGGER.debug("Created Group Information for " + player.getUniqueID().toString());
+    }
+
+    @SubscribeEvent
     public void onMobSpawn(final EntityJoinWorldEvent e) {
         if (!(e.getEntity() instanceof MonsterEntity)) return;
+        if(e.getWorld().isRemote) return;
         final MonsterEntity entity = (MonsterEntity) e.getEntity();
         final List<ServerPlayerEntity> playerList = BlutmondRPG.getMinecraftServer().getPlayerList().getPlayers();
 
@@ -72,8 +92,46 @@ public class CustomCapabilityManager {
         Ref.LOGGER.debug("Added Player Information from " + highestLevelPlayer.getName().getString() + " to " + entity.getType().getRegistryName());
     }
 
-
     private double getDistance(BlockPos start, BlockPos end) {
         return Math.pow(Math.pow(end.getX() - start.getX(), 2) + Math.pow(end.getZ() - start.getZ(), 2), 0.5);
+    }
+
+    @SubscribeEvent
+    public void onMobWasKilledByPlayer(final LivingDeathEvent e) {
+        if (!(e.getEntity() instanceof MonsterEntity)) return;
+        if (e.getSource().getTrueSource() == null) return;
+        if (!(e.getSource().getTrueSource().getEntity() instanceof PlayerEntity)) return;
+        MinecraftForge.EVENT_BUS.post(
+                new GainExpEvent(
+                        (PlayerEntity) e.getSource().getTrueSource(),
+                        e.getEntity().getCapability(
+                                MobScalingProvider.MOB_SCLAING_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Monster Capability.")
+                        ).getExp()
+                )
+        );
+    }
+
+    @SubscribeEvent
+    public void onPlayerJoinWorld(final EntityJoinWorldEvent e) {
+        if (!(e.getEntity() instanceof PlayerEntity)) return;
+        if (e.getEntity() instanceof FakePlayer) return;
+        final PlayerEntity player = (PlayerEntity) e.getEntity();
+        final IGroup cap = player.getCapability(GroupProvider.GROUP_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while writing initial group information"));
+        if (!cap.getPartyMaster().toString().equals(Ref.FAKE_PLAYER.getId().toString())) return;
+
+        cap.setPartyMaster(player.getUniqueID());
+        cap.addMember(player.getUniqueID());
+
+        Ref.LOGGER.debug("Added initial group information for " + player.getName().getString());
+    }
+
+    @SubscribeEvent
+    public void onPlayerLeave(final PlayerEvent.PlayerLoggedOutEvent e) {
+        if (e.getEntity() instanceof FakePlayer) return;
+        final PlayerEntity player = (PlayerEntity) e.getEntity();
+        final IGroup cap = player.getCapability(GroupProvider.GROUP_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while writing initial group information"));
+        if (!cap.getPartyMaster().toString().equals(Ref.FAKE_PLAYER.getId().toString())) return;
+
+        MinecraftForge.EVENT_BUS.post(new GroupPlayerLeaveEvent(player));
     }
 }

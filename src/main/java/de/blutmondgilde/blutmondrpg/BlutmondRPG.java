@@ -6,6 +6,7 @@ import de.blutmondgilde.blutmondrpg.handler.PlayerHandler;
 import de.blutmondgilde.blutmondrpg.handler.RenderHandler;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.util.Ref;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -13,9 +14,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Mod(Ref.MOD_ID)
 public class BlutmondRPG {
     private static MinecraftServer minecraftServer;
+    private static final Map<PlayerEntity, PlayerEntity> pendingGroupRequest = new HashMap<>();
 
     public BlutmondRPG() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -40,5 +45,18 @@ public class BlutmondRPG {
 
     public static MinecraftServer getMinecraftServer() {
         return minecraftServer;
+    }
+
+    public static boolean isPendingGroupRequest(PlayerEntity invitor, PlayerEntity invited) {
+        if (!pendingGroupRequest.containsKey(invitor)) return false;
+        return pendingGroupRequest.get(invitor).equals(invited);
+    }
+
+    public static void addPendingGroupRequest(PlayerEntity invitor, PlayerEntity invited) {
+        pendingGroupRequest.put(invitor, invited);
+    }
+
+    public static void removePendingGroupRequest(PlayerEntity invitor, PlayerEntity invited) {
+        pendingGroupRequest.remove(invitor, invited);
     }
 }
