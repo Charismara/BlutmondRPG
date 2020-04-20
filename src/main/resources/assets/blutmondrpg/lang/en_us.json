@@ -13,5 +13,8 @@
   "blutmondrpg.command.group.answer.no.sender": "denied the Group invitation",
   "blutmondrpg.command.group.invite.self": "You can't invite yourself.",
   "blutmondrpg.command.group.kicked.successful": "has been kicked from the group.",
-  "blutmondrpg.command.group.kicked": "You have been kick out of the group."
+  "blutmondrpg.command.group.kicked": "You have been kick out of the group.",
+  "blutmondrpg.class.name.warrior": "Warrior",
+  "blutmondrpg.class.name.mage": "Mage (not working right now!)",
+  "blutmondrpg.class.name.scout": "Scout (not working right now!)"
 }
