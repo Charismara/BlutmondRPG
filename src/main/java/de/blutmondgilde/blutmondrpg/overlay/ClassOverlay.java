@@ -48,8 +48,11 @@ public class ClassOverlay extends AbstractGui {
         try {
             if (!capability.getBasicClass().equals(BasicClasses.NONE)) {
                 renderClassIconBg();
-                renderClassExp();
+                if (!capability.getClassLevel().equals(ClassLevel.getMaxLevel()) && capability.getClassExp() > 0) {
+                    renderClassExp();
+                }
                 renderClassIcon();
+                renderClassLevel();
             }
             renderHPBarBackground();
             renderHPBar();
@@ -65,6 +68,10 @@ public class ClassOverlay extends AbstractGui {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private void renderClassLevel() {
+        this.drawCenteredString(client.fontRenderer, String.valueOf(capability.getClassLevel().getId()), 32, 31, 51200);
     }
 
     private void renderClassExp() {

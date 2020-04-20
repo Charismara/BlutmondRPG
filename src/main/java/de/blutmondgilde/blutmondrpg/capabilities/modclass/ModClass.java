@@ -79,12 +79,19 @@ public class ModClass implements IModClass {
 
     @Override
     public void addClassExp(double exp) {
-        if (this.classExp + exp >= this.getClassLevel().getExp()) {
-            double nextLevelExp = this.classExp + exp - this.getClassLevel().getExp();
+        //If player is max level just add the exp
+        if (this.classLevel.equals(ClassLevel.getMaxLevel())) {
+            this.classExp += exp;
+            return;
+        }
+        //If the player can level up with the exp then level up and add the remaining exp else just add exp
+        if (this.classExp + exp >= ClassLevel.getLevelFromId(this.classLevel.getId() + 1).getExp()) {
+            double nextLevelExp = this.classExp + exp - ClassLevel.getLevelFromId(this.getClassLevel().getId() + 1).getExp();
             classLevelUp();
             setClassExp(nextLevelExp);
+        } else {
+            this.classExp += exp;
         }
-        this.classExp += exp;
     }
 
     @Override

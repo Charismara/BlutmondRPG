@@ -32,7 +32,7 @@ public class MobScaling implements IMobScaling {
         ClassLevel level = playerCap.getClassLevel();
         this.maxHP = level.getId() * 0.75F;
         this.attackDamage = level.getId();
-        this.exp = 0.5F;
+        this.exp = 0.05F;
     }
 
     @Override

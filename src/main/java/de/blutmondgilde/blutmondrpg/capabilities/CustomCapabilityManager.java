@@ -57,6 +57,7 @@ public class CustomCapabilityManager {
 
         e.addCapability(new ResourceLocation(Ref.MOD_ID, "mobscalingdata"), new MobScalingProvider());
         Ref.LOGGER.debug("Attached Mob Capability to " + e.getObject().getType().getRegistryName());
+        //TODO Attach mob stats to mob
     }
 
     @SubscribeEvent
@@ -72,7 +73,7 @@ public class CustomCapabilityManager {
     @SubscribeEvent
     public void onMobSpawn(final EntityJoinWorldEvent e) {
         if (!(e.getEntity() instanceof MonsterEntity)) return;
-        if(e.getWorld().isRemote) return;
+        if (e.getWorld().isRemote) return;
         final MonsterEntity entity = (MonsterEntity) e.getEntity();
         final List<ServerPlayerEntity> playerList = BlutmondRPG.getMinecraftServer().getPlayerList().getPlayers();
 
@@ -101,14 +102,13 @@ public class CustomCapabilityManager {
         if (!(e.getEntity() instanceof MonsterEntity)) return;
         if (e.getSource().getTrueSource() == null) return;
         if (!(e.getSource().getTrueSource().getEntity() instanceof PlayerEntity)) return;
-        MinecraftForge.EVENT_BUS.post(
-                new GainExpEvent(
-                        (PlayerEntity) e.getSource().getTrueSource(),
-                        e.getEntity().getCapability(
-                                MobScalingProvider.MOB_SCLAING_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Monster Capability.")
-                        ).getExp()
-                )
-        );
+        PlayerEntity killer = (PlayerEntity) e.getSource().getTrueSource();
+        IModClass killerCap = killer.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Killer Capability."));
+        Entity killed = e.getEntity();
+        IMobScaling killedCap = killed.getCapability(MobScalingProvider.MOB_SCLAING_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Killed Capability."));
+        ClassLevel mobLevel = killedCap.getClosestPlayer().getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Killed level Capability.")).getClassLevel();
+
+        MinecraftForge.EVENT_BUS.post(new GainExpEvent(killer, killedCap.getExp(), mobLevel));
     }
 
     @SubscribeEvent
