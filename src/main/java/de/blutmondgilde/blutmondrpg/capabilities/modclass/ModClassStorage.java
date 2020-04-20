@@ -19,6 +19,9 @@ public class ModClassStorage implements Capability.IStorage<IModClass> {
         tag.putFloat("modMaxHp", instance.getMaxHP());
         tag.putFloat("modMaxMana", instance.getMaxMana());
         tag.putFloat("modCurrenMana", instance.getCurrentMana());
+        tag.putFloat("modMelee", instance.getMeleeDmg());
+        tag.putFloat("modMagic", instance.getMagicDmg());
+        tag.putFloat("modBow", instance.getBowDmg());
 
         return tag;
     }
@@ -33,5 +36,8 @@ public class ModClassStorage implements Capability.IStorage<IModClass> {
         instance.setMaxHP(tag.getFloat("modMaxHp"));
         instance.setMaxMana(tag.getFloat("modMaxMana"));
         instance.setCurrentMana(tag.getFloat("modCurrenMana"));
+        instance.setMeleeDmg(tag.getFloat("modMelee"));
+        instance.setMagicDmg(tag.getFloat("modMagic"));
+        instance.setBowDmg(tag.getFloat("modBow"));
     }
 }

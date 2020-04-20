@@ -7,9 +7,7 @@ public class ModClass implements IModClass {
     private BasicClasses basicClass;
     private ClassLevel classLevel;
     private double classExp;
-    private float maxHP;
-    private float maxMana;
-    private float mana;
+    private float maxHP, maxMana, mana, meleeDmg, magicDmg, bowDmg;
 
     public ModClass() {
         this.basicClass = BasicClasses.NONE;
@@ -18,6 +16,9 @@ public class ModClass implements IModClass {
         this.maxHP = basicClass.getBaseHP();
         this.maxMana = basicClass.getBaseMana();
         this.mana = 0;
+        this.meleeDmg = basicClass.getBaseMeleeDamage();
+        this.magicDmg = basicClass.getBaseMagicalDamage();
+        this.bowDmg = basicClass.getBaseBowDamage();
     }
 
     @Override
@@ -48,18 +49,32 @@ public class ModClass implements IModClass {
     @Override
     public void setClassLevel(ClassLevel level) {
         this.classLevel = level;
+        recalculateStats();
+    }
+
+    private void recalculateStats() {
+        if (classLevel.equals(ClassLevel.L1)) return;
+        this.meleeDmg = calcStat(this.basicClass.getBaseMeleeDamage(), this.basicClass.getMeleeScaling());
+        this.magicDmg = calcStat(this.basicClass.getBaseMagicalDamage(), this.basicClass.getMagicDamageScaling());
+        this.bowDmg = calcStat(this.basicClass.getBaseBowDamage(), this.basicClass.getBowDamageScaling());
+        this.maxHP = calcStat(this.basicClass.getBaseHP(), this.basicClass.getHpScaling());
+        this.maxMana = calcStat(this.basicClass.getBaseMana(), this.basicClass.getManaScaling());
+    }
+
+    private float calcStat(float base, float scaling) {
+        return base * this.getClassLevel().getId() * scaling;
     }
 
     @Override
     public void setClassLevel(int level) {
-        this.classLevel = ClassLevel.getLevelFromId(level);
+        setClassLevel(ClassLevel.getLevelFromId(level));
     }
 
     @Override
     public void addClassLevel(int amount) {
         if (this.classLevel.getId() + amount > ClassLevel.getMaxLevel().getId()) return; //deny overleveling
         if (this.classLevel.getId() + amount < this.classLevel.getId()) return; //deny downleveling
-        this.classLevel = ClassLevel.getLevelFromId(this.classLevel.getId() + amount);
+        setClassLevel(ClassLevel.getLevelFromId(this.classLevel.getId() + amount));
     }
 
     @Override
@@ -137,5 +152,35 @@ public class ModClass implements IModClass {
         } else {
             this.mana += amount;
         }
+    }
+
+    @Override
+    public void setMeleeDmg(float amount) {
+        this.meleeDmg = amount;
+    }
+
+    @Override
+    public float getMeleeDmg() {
+        return this.meleeDmg;
+    }
+
+    @Override
+    public void setMagicDmg(float amount) {
+        this.magicDmg = amount;
+    }
+
+    @Override
+    public float getMagicDmg() {
+        return this.magicDmg;
+    }
+
+    @Override
+    public void setBowDmg(float amount) {
+        this.bowDmg = amount;
+    }
+
+    @Override
+    public float getBowDmg() {
+        return this.bowDmg;
     }
 }

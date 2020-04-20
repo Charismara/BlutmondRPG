@@ -45,4 +45,16 @@ public interface IModClass {
     void useMana(float amount);
 
     void addMana(float amount);
+
+    void setMeleeDmg(float amount);
+
+    float getMeleeDmg();
+
+    void setMagicDmg(float amount);
+
+    float getMagicDmg();
+
+    void setBowDmg(float amount);
+
+    float getBowDmg();
 }

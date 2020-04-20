@@ -16,7 +16,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import java.util.UUID;
 
 public class PlayerHandler {
-    private static final UUID MODIFIER_ID = UUID.fromString("2fcc35d1-3f05-40f0-8aa5-2931d714e8b6");
+    private static final UUID HP_MODIFIER_ID = UUID.fromString("2fcc35d1-3f05-40f0-8aa5-2931d714e8b6");
+    private static final UUID MELEE_MODIFIER_ID = UUID.randomUUID();
 
     @SubscribeEvent
     public void chooseClassOnFirstLogIn(final PlayerEvent.PlayerLoggedInEvent e) {
@@ -27,10 +28,10 @@ public class PlayerHandler {
     }
 
     private static void applyHP(PlayerEntity player, double value) {
-        AttributeModifier modifier = new AttributeModifier(MODIFIER_ID, Ref.MOD_ID + ".health", value, AttributeModifier.Operation.ADDITION);
+        AttributeModifier modifier = new AttributeModifier(HP_MODIFIER_ID, Ref.MOD_ID + ".health", value, AttributeModifier.Operation.ADDITION);
         IAttributeInstance attribute = player.getAttribute(SharedMonsterAttributes.MAX_HEALTH);
         try {
-            attribute.removeModifier(MODIFIER_ID);
+            attribute.removeModifier(HP_MODIFIER_ID);
             attribute.applyModifier(modifier);
         } catch (Exception ignore) {
         }
@@ -44,6 +45,17 @@ public class PlayerHandler {
         applyHP(player, value);
         if (heal) {
             player.setHealth(player.getMaxHealth());
+        }
+    }
+
+    public static void applyDmg(PlayerEntity player, double value) {
+        AttributeModifier modifier = new AttributeModifier(MELEE_MODIFIER_ID, Ref.MOD_ID + ".damage.melee", value, AttributeModifier.Operation.ADDITION);
+        IAttributeInstance attribute = player.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+        try {
+            attribute.removeModifier(MELEE_MODIFIER_ID);
+            attribute.applyModifier(modifier);
+        } catch (Exception ignore) {
+
         }
     }
 
@@ -70,4 +82,5 @@ public class PlayerHandler {
 
         CustomNetworkManager.syncPlayerClass(newEntity);
     }
+
 }

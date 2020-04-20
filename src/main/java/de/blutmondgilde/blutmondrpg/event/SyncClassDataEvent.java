@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.Event;
 
 public class SyncClassDataEvent extends Event {
 
-    public SyncClassDataEvent(int classId, int classLevel, double classExp, float maxHP, float maxMana, float mana) {
+    public SyncClassDataEvent(int classId, int classLevel, double classExp, float maxHP, float maxMana, float mana, float melee, float magic, float bow) {
 
         IModClass cap = Minecraft.getInstance().player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while syncing Class capability"));
         cap.setBasicClass(classId);
@@ -17,6 +17,9 @@ public class SyncClassDataEvent extends Event {
         cap.setMaxHP(maxHP);
         cap.setMaxMana(maxMana);
         cap.setCurrentMana(mana);
+        cap.setBowDmg(bow);
+        cap.setMagicDmg(magic);
+        cap.setMeleeDmg(melee);
 
         Ref.LOGGER.debug("Class Information Synced");
     }
