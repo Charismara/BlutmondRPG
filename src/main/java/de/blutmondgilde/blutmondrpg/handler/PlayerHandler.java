@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class PlayerHandler {
     private static final UUID HP_MODIFIER_ID = UUID.fromString("2fcc35d1-3f05-40f0-8aa5-2931d714e8b6");
-    private static final UUID MELEE_MODIFIER_ID = UUID.randomUUID();
+    private static final UUID MELEE_MODIFIER_ID = UUID.fromString("cdff4b2e-a85e-4a91-8ed1-97d1851a509c");
 
     @SubscribeEvent
     public void chooseClassOnFirstLogIn(final PlayerEvent.PlayerLoggedInEvent e) {

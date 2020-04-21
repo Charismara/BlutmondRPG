@@ -17,9 +17,9 @@ public class SyncClassDataEvent extends Event {
         cap.setMaxHP(maxHP);
         cap.setMaxMana(maxMana);
         cap.setCurrentMana(mana);
-        cap.setBowDmg(bow);
-        cap.setMagicDmg(magic);
         cap.setMeleeDmg(melee);
+        cap.setMagicDmg(magic);
+        cap.setBowDmg(bow);
 
         Ref.LOGGER.debug("Class Information Synced");
     }

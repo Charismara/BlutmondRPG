@@ -16,6 +16,7 @@ import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
 import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
 import de.blutmondgilde.blutmondrpg.event.GainExpEvent;
 import de.blutmondgilde.blutmondrpg.event.GroupPlayerLeaveEvent;
+import de.blutmondgilde.blutmondrpg.handler.MobHandler;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -56,7 +57,6 @@ public class CustomCapabilityManager {
         if (!(e.getObject() instanceof MonsterEntity)) return;
 
         e.addCapability(new ResourceLocation(Ref.MOD_ID, "mobscalingdata"), new MobScalingProvider());
-        //TODO Attach mob stats to mob
     }
 
     @SubscribeEvent
@@ -88,6 +88,8 @@ public class CustomCapabilityManager {
 
         IMobScaling monsterCap = entity.getCapability(MobScalingProvider.MOB_SCLAING_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading MonsterEntity Capability. MonsterEntity: " + entity.getType().getRegistryName()));
         monsterCap.setClosestPlayer(highestLevelPlayer);
+
+        MobHandler.applyMobStats(entity);
     }
 
     private double getDistance(BlockPos start, BlockPos end) {

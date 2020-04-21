@@ -53,7 +53,6 @@ public class ModClass implements IModClass {
     }
 
     private void recalculateStats() {
-        if (classLevel.equals(ClassLevel.L1)) return;
         this.meleeDmg = calcStat(this.basicClass.getBaseMeleeDamage(), this.basicClass.getMeleeScaling());
         this.magicDmg = calcStat(this.basicClass.getBaseMagicalDamage(), this.basicClass.getMagicDamageScaling());
         this.bowDmg = calcStat(this.basicClass.getBaseBowDamage(), this.basicClass.getBowDamageScaling());
