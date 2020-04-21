@@ -29,8 +29,6 @@ public class MobHandler {
         try {
             entityHP.applyModifier(hpMod);
             entityDmg.applyModifier(dmgMod);
-
-            Ref.LOGGER.debug("Applied Mob Attributes. HP: " + entityHP.getValue() + ", Dmg: " + entityDmg.getValue());
         } catch (Exception ignore) {
             ignore.printStackTrace();
         }

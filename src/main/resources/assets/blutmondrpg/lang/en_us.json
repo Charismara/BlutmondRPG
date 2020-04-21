@@ -16,5 +16,10 @@
   "blutmondrpg.command.group.kicked": "You have been kick out of the group.",
   "blutmondrpg.class.name.warrior": "Warrior",
   "blutmondrpg.class.name.mage": "Mage",
-  "blutmondrpg.class.name.scout": "Scout"
+  "blutmondrpg.class.name.scout": "Scout",
+  "blutmondrpg.gui.stats.hp": "Maximum Health",
+  "blutmondrpg.gui.stats.mana": "Maximum Mana",
+  "blutmondrpg.gui.stats.melee": "Melee Damage",
+  "blutmondrpg.gui.stats.magic": "Magic Damage",
+  "blutmondrpg.gui.stats.bow": "Bow Damage"
 }
