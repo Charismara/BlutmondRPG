@@ -4,11 +4,14 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
 import de.blutmondgilde.blutmondrpg.event.*;
 import de.blutmondgilde.blutmondrpg.handler.GroupHandler;
+import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -46,8 +49,15 @@ public class CommandManager {
                                     cs.getSource().sendFeedback(new TranslationTextComponent("blutmondrpg.command.group.invite.self"), false);
                                     return 0;
                                 } else {
-                                    MinecraftForge.EVENT_BUS.post(new GroupInvitePlayerEvent(cs.getSource().asPlayer(), EntityArgument.getPlayer(cs, "Player")));
-                                    return 1;
+                                    final IGroup cap = CapabilityHelper.getGroupCapability(cs.getSource().asPlayer());
+                                    final PlayerEntity target = EntityArgument.getPlayer(cs, "Player");
+                                    if (cap.getMemberList().contains(target.getUniqueID())) {
+                                        cs.getSource().sendFeedback(new TranslationTextComponent("blutmondrpg.command.group.invite.already.there"), false);
+                                        return 2;
+                                    } else {
+                                        MinecraftForge.EVENT_BUS.post(new GroupInvitePlayerEvent(cs.getSource().asPlayer(), EntityArgument.getPlayer(cs, "Player")));
+                                        return 1;
+                                    }
                                 }
                             }
                     )))

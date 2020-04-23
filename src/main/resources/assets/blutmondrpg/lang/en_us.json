@@ -21,5 +21,8 @@
   "blutmondrpg.gui.stats.mana": "Maximum Mana",
   "blutmondrpg.gui.stats.melee": "Melee Damage",
   "blutmondrpg.gui.stats.magic": "Magic Damage",
-  "blutmondrpg.gui.stats.bow": "Bow Damage"
+  "blutmondrpg.gui.stats.bow": "Bow Damage",
+  "blutmondrpg.command.group.invite.already.there": "This Player is already in your Group.",
+  "blutmondrpg.command.group.leave.members": "left the Group.",
+  "blutmondrpg.command.group.leave.self": "You left the Group."
 }

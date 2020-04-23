@@ -6,6 +6,8 @@ import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.network.ResetGroupInfoPacket;
 import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.eventbus.api.Event;
 
 import java.util.UUID;
@@ -35,9 +37,16 @@ public class GroupPlayerLeaveEvent extends Event {
             CustomNetworkManager.syncPlayerGroup(groupPlayer);
             CustomNetworkManager.removeGroupInfo(groupPlayer, player.getUniqueID());
 
+            ITextComponent message = player.getDisplayName();
+            message.appendText(" ");
+            message.appendSibling(new TranslationTextComponent("blutmondrpg.command.group.leave.members"));
+            groupPlayer.sendMessage(message);
         }
 
+
         playerCap.reset(player);
+        CustomNetworkManager.syncPlayerGroup(player);
         CustomNetworkManager.sendToPlayer(new ResetGroupInfoPacket(), player);
+        player.sendMessage(new TranslationTextComponent("blutmondrpg.command.group.leave.self"));
     }
 }
