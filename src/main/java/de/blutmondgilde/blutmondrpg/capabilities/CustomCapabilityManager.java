@@ -17,6 +17,8 @@ import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
 import de.blutmondgilde.blutmondrpg.event.GainExpEvent;
 import de.blutmondgilde.blutmondrpg.event.GroupPlayerLeaveEvent;
 import de.blutmondgilde.blutmondrpg.handler.MobHandler;
+import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
+import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -34,6 +36,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
+import java.util.UUID;
 
 public class CustomCapabilityManager {
     public static void registerCapabilities() {
@@ -128,8 +131,12 @@ public class CustomCapabilityManager {
     public void onPlayerLeave(final PlayerEvent.PlayerLoggedOutEvent e) {
         if (e.getEntity() instanceof FakePlayer) return;
         final PlayerEntity player = (PlayerEntity) e.getEntity();
-        final IGroup cap = player.getCapability(GroupProvider.GROUP_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while writing initial group information"));
+        final IGroup cap = CapabilityHelper.getGroupCapability(player);
         if (!cap.getPartyMaster().toString().equals(Ref.FAKE_PLAYER.getId().toString())) return;
+
+        for (UUID uuid : cap.getMemberList()) {
+            CustomNetworkManager.removeGroupInfo(BlutmondRPG.getMinecraftServer().getPlayerList().getPlayerByUUID(uuid), player.getUniqueID());
+        }
 
         MinecraftForge.EVENT_BUS.post(new GroupPlayerLeaveEvent(player));
     }

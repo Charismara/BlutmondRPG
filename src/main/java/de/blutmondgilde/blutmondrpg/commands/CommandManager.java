@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import de.blutmondgilde.blutmondrpg.event.*;
+import de.blutmondgilde.blutmondrpg.handler.GroupHandler;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
@@ -53,6 +54,7 @@ public class CommandManager {
                     .then(Commands.literal("kick").then(Commands.argument("Player", EntityArgument.players()).requires(cs -> cs.hasPermissionLevel(0)).executes(
                             cs -> {
                                 MinecraftForge.EVENT_BUS.post(new GroupKickPlayerEvent(cs.getSource().asPlayer(), EntityArgument.getPlayer(cs, "Player")));
+                                GroupHandler.sendInfosToPlayers(cs.getSource().asPlayer());
                                 return 1;
                             }
                     )))
@@ -65,12 +67,14 @@ public class CommandManager {
                     .then(Commands.literal("answer").requires(cs -> cs.hasPermissionLevel(0)).then(Commands.argument("Invitor", EntityArgument.players()).then(Commands.argument("Accepted", BoolArgumentType.bool()).executes(
                             cs -> {
                                 MinecraftForge.EVENT_BUS.post(new GroupInviteAnswerEvent(EntityArgument.getPlayer(cs, "Invitor"), cs.getSource().asPlayer(), BoolArgumentType.getBool(cs, "Accepted")));
+                                GroupHandler.sendInfosToPlayers(cs.getSource().asPlayer());
                                 return 1;
                             }
                     ))))
                     .then(Commands.literal("leave").requires(cs -> cs.hasPermissionLevel(0)).executes(
                             cs -> {
                                 MinecraftForge.EVENT_BUS.post(new GroupPlayerLeaveEvent(cs.getSource().asPlayer()));
+                                GroupHandler.sendInfosToPlayers(cs.getSource().asPlayer());
                                 return 1;
                             }
                     ));

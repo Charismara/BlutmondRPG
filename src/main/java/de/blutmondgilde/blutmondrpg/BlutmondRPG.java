@@ -2,6 +2,7 @@ package de.blutmondgilde.blutmondrpg;
 
 import de.blutmondgilde.blutmondrpg.capabilities.CustomCapabilityManager;
 import de.blutmondgilde.blutmondrpg.commands.CommandManager;
+import de.blutmondgilde.blutmondrpg.handler.GroupHandler;
 import de.blutmondgilde.blutmondrpg.handler.PlayerHandler;
 import de.blutmondgilde.blutmondrpg.handler.RenderHandler;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
@@ -29,6 +30,7 @@ public class BlutmondRPG {
         MinecraftForge.EVENT_BUS.register(new CustomCapabilityManager());
         MinecraftForge.EVENT_BUS.register(new PlayerHandler());
         MinecraftForge.EVENT_BUS.register(new RenderHandler());
+        MinecraftForge.EVENT_BUS.register(new GroupHandler());
     }
 
     private void setup(final FMLCommonSetupEvent e) {

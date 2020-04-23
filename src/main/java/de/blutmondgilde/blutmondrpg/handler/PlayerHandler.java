@@ -10,14 +10,22 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class PlayerHandler {
     private static final UUID HP_MODIFIER_ID = UUID.fromString("2fcc35d1-3f05-40f0-8aa5-2931d714e8b6");
     private static final UUID MELEE_MODIFIER_ID = UUID.fromString("cdff4b2e-a85e-4a91-8ed1-97d1851a509c");
+    public static Map<UUID, Float> GroupMaxHP = new HashMap<>();
+    private static Map<UUID, String> GroupName = new HashMap<>();
+    private static Map<UUID, Float> GroupHP = new HashMap<>();
 
     @SubscribeEvent
     public void chooseClassOnFirstLogIn(final PlayerEvent.PlayerLoggedInEvent e) {
@@ -83,4 +91,43 @@ public class PlayerHandler {
         CustomNetworkManager.syncPlayerClass(newEntity);
     }
 
+    public static float getGroupMemberMaxHP(final UUID uuid) {
+        return GroupMaxHP.get(uuid);
+    }
+
+    public static float getGroupMemberHP(final UUID uuid) {
+        return GroupHP.get(uuid);
+    }
+
+    public static String getGroupMemberNames(final UUID uuid) {
+        return GroupName.get(uuid);
+    }
+
+    public static void addPlayerInformation(final UUID uuid, final String name, final float hp, final float maxHp) {
+        if (GroupMaxHP.containsKey(uuid)) {
+            removePlayerInformation(uuid);
+        }
+
+        GroupMaxHP.put(uuid, maxHp);
+        GroupHP.put(uuid, hp);
+        GroupName.put(uuid, name);
+    }
+
+    public static void removePlayerInformation(final UUID uuid) {
+        GroupMaxHP.remove(uuid);
+        GroupHP.remove(uuid);
+        GroupName.remove(uuid);
+    }
+
+    public static void resetPlayerInformation() {
+        GroupMaxHP = new HashMap<>();
+        GroupHP = new HashMap<>();
+        GroupName = new HashMap<>();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public void onClientLeaveServer(final ClientPlayerNetworkEvent.LoggedOutEvent e) {
+        resetPlayerInformation();
+    }
 }

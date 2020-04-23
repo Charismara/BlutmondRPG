@@ -2,7 +2,10 @@ package de.blutmondgilde.blutmondrpg.handler;
 
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassProvider;
+import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
 import de.blutmondgilde.blutmondrpg.overlay.ClassOverlay;
+import de.blutmondgilde.blutmondrpg.overlay.GroupOverlay;
+import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -52,6 +55,16 @@ public class RenderHandler {
         IModClass cap = Minecraft.getInstance().player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Can't get local player capability"));
         ClassOverlay classOverlay = new ClassOverlay(Minecraft.getInstance(), manaDisplayAlpha, cap);
         classOverlay.render();
+    }
+
+    @SubscribeEvent
+    public void renderGroupOverlay(final RenderGameOverlayEvent.Post e) {
+        if (!e.getType().equals(RenderGameOverlayEvent.ElementType.HOTBAR)) return;
+        final Minecraft minecraft = Minecraft.getInstance();
+
+        IGroup cap = CapabilityHelper.getGroupCapability(minecraft.player);
+        GroupOverlay overlay = new GroupOverlay(minecraft, cap);
+        overlay.render();
     }
 
     @OnlyIn(Dist.CLIENT)
