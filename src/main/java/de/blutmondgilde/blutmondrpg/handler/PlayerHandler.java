@@ -6,6 +6,7 @@ import de.blutmondgilde.blutmondrpg.enums.BasicClasses;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.network.OpenChooseGuiPacket;
 import de.blutmondgilde.blutmondrpg.util.Ref;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -104,6 +105,8 @@ public class PlayerHandler {
     }
 
     public static void addPlayerInformation(final UUID uuid, final String name, final float hp, final float maxHp) {
+        if (uuid.equals(Minecraft.getInstance().player.getUniqueID())) return;
+
         if (GroupMaxHP.containsKey(uuid)) {
             removePlayerInformation(uuid);
         }
@@ -114,9 +117,14 @@ public class PlayerHandler {
     }
 
     public static void removePlayerInformation(final UUID uuid) {
-        GroupMaxHP.remove(uuid);
-        GroupHP.remove(uuid);
-        GroupName.remove(uuid);
+        if (uuid.equals(Minecraft.getInstance().player.getUniqueID())) return;
+        try {
+            GroupMaxHP.remove(uuid);
+            GroupHP.remove(uuid);
+            GroupName.remove(uuid);
+        } catch (Exception ignore) {
+
+        }
     }
 
     public static void resetPlayerInformation() {

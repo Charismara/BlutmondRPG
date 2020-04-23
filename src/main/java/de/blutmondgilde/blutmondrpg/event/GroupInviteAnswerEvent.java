@@ -1,13 +1,16 @@
 package de.blutmondgilde.blutmondrpg.event;
 
 import de.blutmondgilde.blutmondrpg.BlutmondRPG;
-import de.blutmondgilde.blutmondrpg.capabilities.party.GroupProvider;
 import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
+import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
+import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.eventbus.api.Event;
+
+import java.util.UUID;
 
 public class GroupInviteAnswerEvent extends Event {
     public GroupInviteAnswerEvent(PlayerEntity groupMember, PlayerEntity target, boolean accepted) {
@@ -25,8 +28,8 @@ public class GroupInviteAnswerEvent extends Event {
             message.getStyle().setColor(TextFormatting.DARK_RED);
             groupMember.sendMessage(message);
         } else {
-            IGroup groupMemberCap = groupMember.getCapability(GroupProvider.GROUP_CAPABILITY).orElseThrow(() -> new IllegalStateException("Could not load invitor group capability"));
-            IGroup targetCap = target.getCapability(GroupProvider.GROUP_CAPABILITY).orElseThrow(() -> new IllegalStateException("Could not load target group capability"));
+            IGroup groupMemberCap = CapabilityHelper.getGroupCapability(groupMember, "Could not load invitor group capability");
+            IGroup targetCap = CapabilityHelper.getGroupCapability(target, "Could not load target group capability");
             targetCap.setPartyMaster(groupMemberCap.getPartyMaster());
             targetCap.setSharingMethod(groupMemberCap.getSharingMethod());
             groupMemberCap.addMember(target);
@@ -42,7 +45,12 @@ public class GroupInviteAnswerEvent extends Event {
             message.appendText(" ");
             message.appendSibling(new TranslationTextComponent("blutmondrpg.command.group.answer.yes.sender"));
             groupMember.sendMessage(message);
+
+            for (UUID uuid : groupMemberCap.getMemberList()) {
+                CustomNetworkManager.sendGroupMemberInfo(target, uuid);
+            }
         }
         BlutmondRPG.removePendingGroupRequest(groupMember, target);
+
     }
 }
