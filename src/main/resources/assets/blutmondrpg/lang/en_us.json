@@ -26,5 +26,7 @@
   "blutmondrpg.command.group.leave.members": "left the Group.",
   "blutmondrpg.command.group.leave.self": "You left the Group.",
   "blutmondrpg.gui.otherplayer.title": " RPG-Card",
-  "blutmondrpg.gui.otherplayer.button.invite": "Invite Player to Group"
+  "blutmondrpg.gui.otherplayer.button.invite": "Invite Player to Group",
+  "blutmondrpg.gui.otherplayer.button.invited.1": "You invited",
+  "blutmondrpg.gui.otherplayer.button.invited.2": "to the Group."
 }

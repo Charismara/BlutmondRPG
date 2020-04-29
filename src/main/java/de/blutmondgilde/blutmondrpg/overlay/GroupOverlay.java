@@ -2,6 +2,7 @@ package de.blutmondgilde.blutmondrpg.overlay;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
+import de.blutmondgilde.blutmondrpg.enums.StringColors;
 import de.blutmondgilde.blutmondrpg.handler.PlayerHandler;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import de.blutmondgilde.blutmondrpg.util.RenderHelper;
@@ -41,7 +42,7 @@ public class GroupOverlay extends AbstractGui {
 
                 renderBackground(yOffset);
                 renderMemberName(name, yOffset);
-                renderHPNum(hp, maxHP, yOffset);
+                renderHPNum(Math.round(hp), Math.round(maxHP), yOffset);
 
                 yOffset += Y_OFFSET_VALUE;
             } catch (Exception ex) {
@@ -52,12 +53,12 @@ public class GroupOverlay extends AbstractGui {
 
     private void renderMemberName(final String name, final int yOffset) {
         final int posY = this.screenHeight / 2 - this.client.fontRenderer.FONT_HEIGHT - yOffset;
-        drawString(this.client.fontRenderer, name, this.screenWidth - 149, posY, 9868950);
+        drawString(this.client.fontRenderer, name, this.screenWidth - 149, posY, StringColors.GRAY.getColorCode());
     }
 
     private void renderHPNum(float hp, float maxHP, int yOffset) {
         final int posY = this.screenHeight / 2 - this.client.fontRenderer.FONT_HEIGHT - yOffset;
-        drawRightAlignedString(client.fontRenderer, hp + "/" + maxHP, this.screenWidth, posY, 9868950);
+        drawRightAlignedString(client.fontRenderer, hp + "/" + maxHP, this.screenWidth, posY, StringColors.GRAY.getColorCode());
     }
 
 

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
 import de.blutmondgilde.blutmondrpg.enums.BasicClasses;
 import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
+import de.blutmondgilde.blutmondrpg.enums.StringColors;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import de.blutmondgilde.blutmondrpg.util.RenderHelper;
 import net.minecraft.client.Minecraft;
@@ -66,7 +67,7 @@ public class ClassOverlay extends AbstractGui {
     }
 
     private void renderClassLevel() {
-        this.drawCenteredString(client.fontRenderer, String.valueOf(capability.getClassLevel().getId()), 32, 31, 51200);
+        this.drawCenteredString(client.fontRenderer, String.valueOf(capability.getClassLevel().getId()), 32, 31, StringColors.GREEN.getColorCode());
     }
 
     private void renderClassExp() {
@@ -249,7 +250,7 @@ public class ClassOverlay extends AbstractGui {
     private void renderHPNum() {
         final int hp = Math.round(client.player.getHealth());
         final int maxHp = Math.round(client.player.getMaxHealth());
-        this.drawCenteredString(client.fontRenderer, hp + " /" + maxHp, this.screenWidth / 2 - 48, this.screenHeight - 39, 8553090);
+        this.drawCenteredString(client.fontRenderer, hp + " /" + maxHp, this.screenWidth / 2 - 48, this.screenHeight - 39, StringColors.GRAY.getColorCode());
     }
 
     private void renderHPBar() {

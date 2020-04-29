@@ -1,6 +1,7 @@
 package de.blutmondgilde.blutmondrpg.gui;
 
 import de.blutmondgilde.blutmondrpg.enums.BasicClasses;
+import de.blutmondgilde.blutmondrpg.enums.StringColors;
 import de.blutmondgilde.blutmondrpg.gui.elements.base.BaseImageButton;
 import de.blutmondgilde.blutmondrpg.network.ChangeClassPacket;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
@@ -63,13 +64,13 @@ public class ChooseClassGUI extends Screen {
     public void render(int mouseX, int mouseY, float f) {
         super.render(mouseX, mouseY, f);
         if (chooseWarriorButton.isHovered()) {
-            drawCenteredString(this.font, new TranslationTextComponent(Ref.MOD_ID + ".class.name.warrior").getString(), this.width / 2, this.height - 48, 10066329);
+            drawCenteredString(this.font, new TranslationTextComponent(Ref.MOD_ID + ".class.name.warrior").getString(), this.width / 2, this.height - 48, StringColors.GRAY.getColorCode());
         }
         if (chooseMageButton.isHovered()) {
-            drawCenteredString(this.font, new TranslationTextComponent(Ref.MOD_ID + ".class.name.mage").getString(), this.width / 2, this.height - 48, 10066329);
+            drawCenteredString(this.font, new TranslationTextComponent(Ref.MOD_ID + ".class.name.mage").getString(), this.width / 2, this.height - 48, StringColors.GRAY.getColorCode());
         }
         if (chooseScoutButton.isHovered()) {
-            drawCenteredString(this.font, new TranslationTextComponent(Ref.MOD_ID + ".class.name.scout").getString(), this.width / 2, this.height - 48, 10066329);
+            drawCenteredString(this.font, new TranslationTextComponent(Ref.MOD_ID + ".class.name.scout").getString(), this.width / 2, this.height - 48, StringColors.GRAY.getColorCode());
         }
     }
 
