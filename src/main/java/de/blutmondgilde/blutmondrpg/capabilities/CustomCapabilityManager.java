@@ -15,10 +15,7 @@ import de.blutmondgilde.blutmondrpg.capabilities.party.GroupStorage;
 import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
 import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
 import de.blutmondgilde.blutmondrpg.event.GainExpEvent;
-import de.blutmondgilde.blutmondrpg.event.GroupPlayerLeaveEvent;
 import de.blutmondgilde.blutmondrpg.handler.MobHandler;
-import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
-import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -32,11 +29,9 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.List;
-import java.util.UUID;
 
 public class CustomCapabilityManager {
     public static void registerCapabilities() {
@@ -125,19 +120,5 @@ public class CustomCapabilityManager {
         cap.addMember(player.getUniqueID());
 
         Ref.LOGGER.debug("Added initial group information for " + player.getName().getString());
-    }
-
-    @SubscribeEvent
-    public void onPlayerLeave(final PlayerEvent.PlayerLoggedOutEvent e) {
-        if (e.getEntity() instanceof FakePlayer) return;
-        final PlayerEntity player = (PlayerEntity) e.getEntity();
-        final IGroup cap = CapabilityHelper.getGroupCapability(player);
-        if (!cap.getPartyMaster().toString().equals(Ref.FAKE_PLAYER.getId().toString())) return;
-
-        for (UUID uuid : cap.getMemberList()) {
-            CustomNetworkManager.removeGroupInfo(BlutmondRPG.getMinecraftServer().getPlayerList().getPlayerByUUID(uuid), player.getUniqueID());
-        }
-
-        MinecraftForge.EVENT_BUS.post(new GroupPlayerLeaveEvent(player));
     }
 }

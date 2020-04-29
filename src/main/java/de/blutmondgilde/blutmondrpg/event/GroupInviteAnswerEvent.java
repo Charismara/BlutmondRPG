@@ -48,6 +48,7 @@ public class GroupInviteAnswerEvent extends Event {
 
             for (UUID uuid : groupMemberCap.getMemberList()) {
                 CustomNetworkManager.sendGroupMemberInfo(target, uuid);
+                CustomNetworkManager.syncPlayerGroup(BlutmondRPG.getMinecraftServer().getPlayerList().getPlayerByUUID(uuid));
             }
         }
         BlutmondRPG.removePendingGroupRequest(groupMember, target);

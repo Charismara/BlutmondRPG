@@ -1,5 +1,6 @@
 package de.blutmondgilde.blutmondrpg.util;
 
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
@@ -7,6 +8,20 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 
 public class RenderHelper {
+    public static void drawColoredBackground(final int x, final int y, final int width, final int height, final Color color) {
+        final Tessellator tessellator = Tessellator.getInstance();
+        final BufferBuilder builder = tessellator.getBuffer();
+
+        builder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
+
+        builder.pos(x, y + height, 0).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        builder.pos(x + width, y + height, 0).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        builder.pos(x + width, y, 0).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        builder.pos(x, y, 0).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+
+        tessellator.draw();
+    }
+
     public static void drawTextureFaintOut(int x, int y, float z, int texX, int texY, int widthX, int widthY, int texWidthX, int texWidthY, float alpha) {
         drawTextureFaintOut(x, y, z, texX, texY, widthX, widthY, texWidthX, texWidthY, alpha, 0.00390625F, 0.00390625F);
     }

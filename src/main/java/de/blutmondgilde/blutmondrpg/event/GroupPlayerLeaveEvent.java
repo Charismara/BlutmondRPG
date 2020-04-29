@@ -18,7 +18,7 @@ public class GroupPlayerLeaveEvent extends Event {
      *
      * @param player Player which left the Group
      */
-    public GroupPlayerLeaveEvent(PlayerEntity player) {
+    public GroupPlayerLeaveEvent(final PlayerEntity player) {
         IGroup playerCap = CapabilityHelper.getGroupCapability(player);
         boolean changePartyMaster = false;
 
@@ -31,22 +31,31 @@ public class GroupPlayerLeaveEvent extends Event {
 
             final PlayerEntity groupPlayer = BlutmondRPG.getMinecraftServer().getPlayerList().getPlayerByUUID(uuid);
             IGroup groupCap = CapabilityHelper.getGroupCapability(groupPlayer);
-            if (changePartyMaster) groupCap.setPartyMaster(playerCap.getMemberList().get(1));
+            try {
+                if (changePartyMaster) groupCap.setPartyMaster(playerCap.getMemberList().get(1));
+            } catch (Exception ignore){
 
+            }
+
+            //Remove player from capability
             groupCap.removeMember(player.getUniqueID());
-            CustomNetworkManager.syncPlayerGroup(groupPlayer);
-            CustomNetworkManager.removeGroupInfo(groupPlayer, player.getUniqueID());
-
             ITextComponent message = player.getDisplayName();
             message.appendText(" ");
             message.appendSibling(new TranslationTextComponent("blutmondrpg.command.group.leave.members"));
             groupPlayer.sendMessage(message);
+
+            //Sync player capability
+            CustomNetworkManager.removeGroupInfo(groupPlayer, player.getUniqueID());
+            CustomNetworkManager.syncPlayerGroup(groupPlayer);
         }
 
+        try {
+            playerCap.reset(player);
+            CustomNetworkManager.syncPlayerGroup(player);
+            CustomNetworkManager.sendToPlayer(new ResetGroupInfoPacket(), player);
+            player.sendMessage(new TranslationTextComponent("blutmondrpg.command.group.leave.self"));
+        } catch (Exception ignore) {
 
-        playerCap.reset(player);
-        CustomNetworkManager.syncPlayerGroup(player);
-        CustomNetworkManager.sendToPlayer(new ResetGroupInfoPacket(), player);
-        player.sendMessage(new TranslationTextComponent("blutmondrpg.command.group.leave.self"));
+        }
     }
 }
