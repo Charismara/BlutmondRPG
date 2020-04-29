@@ -24,5 +24,7 @@
   "blutmondrpg.gui.stats.bow": "Bow Damage",
   "blutmondrpg.command.group.invite.already.there": "This Player is already in your Group.",
   "blutmondrpg.command.group.leave.members": "left the Group.",
-  "blutmondrpg.command.group.leave.self": "You left the Group."
+  "blutmondrpg.command.group.leave.self": "You left the Group.",
+  "blutmondrpg.gui.otherplayer.title": " RPG-Card",
+  "blutmondrpg.gui.otherplayer.button.invite": "Invite Player to Group"
 }

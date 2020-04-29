@@ -34,6 +34,7 @@ public class CustomNetworkManager {
         HANDLER.registerMessage(disc++, SendGroupMemberInfoPacket.class, SendGroupMemberInfoPacket::encode, SendGroupMemberInfoPacket::decode, SendGroupMemberInfoPacket.Handler::handle);
         HANDLER.registerMessage(disc++, RemoveGroupMemberInfoPacket.class, RemoveGroupMemberInfoPacket::encode, RemoveGroupMemberInfoPacket::decode, RemoveGroupMemberInfoPacket.Handler::handle);
         HANDLER.registerMessage(disc++, ResetGroupInfoPacket.class, ResetGroupInfoPacket::encode, ResetGroupInfoPacket::decode, ResetGroupInfoPacket.Handler::handle);
+        HANDLER.registerMessage(disc++, OpenOtherPlayerGuiPacket.class, OpenOtherPlayerGuiPacket::encode, OpenOtherPlayerGuiPacket::decode, OpenOtherPlayerGuiPacket.Handler::handle);
 
         Ref.LOGGER.debug("Registered " + disc + " network packets.");
     }
