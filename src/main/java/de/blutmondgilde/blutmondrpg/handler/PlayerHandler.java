@@ -101,6 +101,8 @@ public class PlayerHandler {
         newGroupCap.setPartyMaster(oldGroupCap.getPartyMaster());
         newGroupCap.setSharingMethod(oldGroupCap.getSharingMethod());
         newGroupCap.setMemberList(oldGroupCap.getMemberList());
+
+        CustomNetworkManager.syncPlayerGroup(newPlayer);
     }
 
     public static float getGroupMemberMaxHP(final UUID uuid) {
