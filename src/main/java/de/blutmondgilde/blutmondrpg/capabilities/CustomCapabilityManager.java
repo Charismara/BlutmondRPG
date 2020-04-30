@@ -16,6 +16,7 @@ import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
 import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
 import de.blutmondgilde.blutmondrpg.event.GainExpEvent;
 import de.blutmondgilde.blutmondrpg.handler.MobHandler;
+import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -78,13 +79,13 @@ public class CustomCapabilityManager {
         PlayerEntity highestLevelPlayer = playerList.get(0);
         for (PlayerEntity player : playerList) {
             if (getDistance(entity.getPosition(), player.getPosition()) > 128) return;
-            final IModClass playerCap = player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while seeking the highest level Player around a Mob. PlayerType: " + player.getClass()));
+            final IModClass playerCap = CapabilityHelper.getClassCapability(player, "Exeption while seeking the highest level Player around a Mob. PlayerType: " + player.getClass());
             if (playerCap.getClassLevel().getId() < highestLevel.getId()) return;
             highestLevelPlayer = player;
             highestLevel = playerCap.getClassLevel();
         }
 
-        IMobScaling monsterCap = entity.getCapability(MobScalingProvider.MOB_SCLAING_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading MonsterEntity Capability. MonsterEntity: " + entity.getType().getRegistryName()));
+        IMobScaling monsterCap = CapabilityHelper.getMobScalingCapability(entity, "Exeption while loading MonsterEntity Capability. MonsterEntity: " + entity.getType().getRegistryName());
         monsterCap.setClosestPlayer(highestLevelPlayer);
 
         MobHandler.applyMobStats(entity);
@@ -100,10 +101,9 @@ public class CustomCapabilityManager {
         if (e.getSource().getTrueSource() == null) return;
         if (!(e.getSource().getTrueSource().getEntity() instanceof PlayerEntity)) return;
         PlayerEntity killer = (PlayerEntity) e.getSource().getTrueSource();
-        IModClass killerCap = killer.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Killer Capability."));
         Entity killed = e.getEntity();
-        IMobScaling killedCap = killed.getCapability(MobScalingProvider.MOB_SCLAING_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Killed Capability."));
-        ClassLevel mobLevel = killedCap.getClosestPlayer().getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading Killed level Capability.")).getClassLevel();
+        IMobScaling killedCap = CapabilityHelper.getMobScalingCapability(killed, "Exeption while loading Killed Capability.");
+        ClassLevel mobLevel = CapabilityHelper.getClassCapability(killedCap.getClosestPlayer(), "Exeption while loading Killed level Capability.").getClassLevel();
 
         MinecraftForge.EVENT_BUS.post(new GainExpEvent(killer, killedCap.getExp(), mobLevel));
     }
@@ -113,7 +113,7 @@ public class CustomCapabilityManager {
         if (!(e.getEntity() instanceof PlayerEntity)) return;
         if (e.getEntity() instanceof FakePlayer) return;
         final PlayerEntity player = (PlayerEntity) e.getEntity();
-        final IGroup cap = player.getCapability(GroupProvider.GROUP_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while writing initial group information"));
+        final IGroup cap = CapabilityHelper.getGroupCapability(player, "Exeption while writing initial group information");
         if (!cap.getPartyMaster().toString().equals(Ref.FAKE_PLAYER.getId().toString())) return;
 
         cap.setPartyMaster(player.getUniqueID());
