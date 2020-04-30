@@ -50,12 +50,13 @@ public class RenderHandler {
                     manaDisplayAlpha = 0.0F;
                 }
             }
+
+            IModClass cap = Minecraft.getInstance().player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Can't get local player capability"));
+            ClassOverlay classOverlay = new ClassOverlay(Minecraft.getInstance(), manaDisplayAlpha, cap);
+            classOverlay.render();
         } catch (Exception ignore) {
             manaDisplayAlpha = 1.0F;
         }
-        IModClass cap = Minecraft.getInstance().player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Can't get local player capability"));
-        ClassOverlay classOverlay = new ClassOverlay(Minecraft.getInstance(), manaDisplayAlpha, cap);
-        classOverlay.render();
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -64,9 +65,12 @@ public class RenderHandler {
         if (!e.getType().equals(RenderGameOverlayEvent.ElementType.HOTBAR)) return;
         final Minecraft minecraft = Minecraft.getInstance();
 
-        IGroup cap = CapabilityHelper.getGroupCapability(minecraft.player);
-        GroupOverlay overlay = new GroupOverlay(minecraft, cap);
-        overlay.render();
+        try {
+            IGroup cap = CapabilityHelper.getGroupCapability(minecraft.player);
+            GroupOverlay overlay = new GroupOverlay(minecraft, cap);
+            overlay.render();
+        } catch (Exception ignore) {
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

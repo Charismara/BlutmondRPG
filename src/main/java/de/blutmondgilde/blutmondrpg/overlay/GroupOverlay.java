@@ -42,7 +42,7 @@ public class GroupOverlay extends AbstractGui {
 
                 renderBackground(yOffset);
                 renderMemberName(name, yOffset);
-                renderHPNum(Math.round(hp), Math.round(maxHP), yOffset);
+                renderHPNum(hp, maxHP, yOffset);
 
                 yOffset += Y_OFFSET_VALUE;
             } catch (Exception ex) {
@@ -58,6 +58,7 @@ public class GroupOverlay extends AbstractGui {
 
     private void renderHPNum(float hp, float maxHP, int yOffset) {
         final int posY = this.screenHeight / 2 - this.client.fontRenderer.FONT_HEIGHT - yOffset;
+
         drawRightAlignedString(client.fontRenderer, hp + "/" + maxHP, this.screenWidth, posY, StringColors.GRAY.getColorCode());
     }
 
