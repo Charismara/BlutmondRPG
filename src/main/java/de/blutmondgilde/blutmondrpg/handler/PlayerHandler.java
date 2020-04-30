@@ -2,9 +2,11 @@ package de.blutmondgilde.blutmondrpg.handler;
 
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassProvider;
+import de.blutmondgilde.blutmondrpg.capabilities.party.IGroup;
 import de.blutmondgilde.blutmondrpg.enums.BasicClasses;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.network.OpenChooseGuiPacket;
+import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -76,20 +78,29 @@ public class PlayerHandler {
     @SubscribeEvent
     public void reAttachOldDataOnRespawn(final PlayerEvent.Clone e) {
         if (!e.isWasDeath()) return;
-        final PlayerEntity oldEntity = e.getOriginal();
-        final IModClass oldCapability = oldEntity.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading the original Capabilities of " + oldEntity.getDisplayName().getString()));
-        final PlayerEntity newEntity = e.getPlayer();
-        final IModClass newCapability = newEntity.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Exeption while loading the new Capabilities of " + newEntity.getDisplayName().getString()));
+        //ModClass Capability
+        final PlayerEntity oldPlayer = e.getOriginal();
+        final IModClass oldClassCap = CapabilityHelper.getClassCapability(oldPlayer, "Exeption while loading the original Capabilities of " + oldPlayer.getDisplayName().getString());
+        final PlayerEntity newPlayer = e.getPlayer();
+        final IModClass newClassCap = CapabilityHelper.getClassCapability(newPlayer, "Exeption while loading the new Capabilities of " + newPlayer.getDisplayName().getString());
 
-        newCapability.setBasicClass(oldCapability.getBasicClass());
-        newCapability.setMaxHP(oldCapability.getMaxHP());
-        newCapability.setMaxMana(oldCapability.getMaxMana());
-        newCapability.setClassLevel(oldCapability.getClassLevel());
-        newCapability.setClassExp(oldCapability.getClassExp());
-        newCapability.setCurrentMana(0);
-        newEntity.setHealth(newCapability.getMaxHP());
+        newClassCap.setBasicClass(oldClassCap.getBasicClass());
+        newClassCap.setMaxHP(oldClassCap.getMaxHP());
+        newClassCap.setMaxMana(oldClassCap.getMaxMana());
+        newClassCap.setClassLevel(oldClassCap.getClassLevel());
+        newClassCap.setClassExp(oldClassCap.getClassExp());
+        newClassCap.setCurrentMana(0);
+        newPlayer.setHealth(newClassCap.getMaxHP());
 
-        CustomNetworkManager.syncPlayerClass(newEntity);
+        CustomNetworkManager.syncPlayerClass(newPlayer);
+
+        //Group Capability
+        final IGroup oldGroupCap = CapabilityHelper.getGroupCapability(oldPlayer);
+        final IGroup newGroupCap = CapabilityHelper.getGroupCapability(newPlayer);
+
+        newGroupCap.setPartyMaster(oldGroupCap.getPartyMaster());
+        newGroupCap.setSharingMethod(oldGroupCap.getSharingMethod());
+        newGroupCap.setMemberList(oldGroupCap.getMemberList());
     }
 
     public static float getGroupMemberMaxHP(final UUID uuid) {
