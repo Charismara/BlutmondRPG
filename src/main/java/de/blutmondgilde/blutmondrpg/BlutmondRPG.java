@@ -1,5 +1,6 @@
 package de.blutmondgilde.blutmondrpg;
 
+import de.blutmondgilde.blutmondrpg.blocks.BlockList;
 import de.blutmondgilde.blutmondrpg.capabilities.CustomCapabilityManager;
 import de.blutmondgilde.blutmondrpg.commands.CommandManager;
 import de.blutmondgilde.blutmondrpg.event.GroupPlayerLeaveEvent;
@@ -9,6 +10,7 @@ import de.blutmondgilde.blutmondrpg.handler.RenderHandler;
 import de.blutmondgilde.blutmondrpg.items.ItemList;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.util.Ref;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
@@ -31,6 +33,7 @@ public class BlutmondRPG {
     private static MinecraftServer minecraftServer;
     private static final Map<PlayerEntity, PlayerEntity> pendingGroupRequest = new HashMap<>();
     private static final DeferredRegister<Item> ITEM_REGISTRY = new DeferredRegister<>(ForgeRegistries.ITEMS, Ref.MOD_ID);
+    private static final DeferredRegister<Block> BLOCK_REGISTRY = new DeferredRegister<>(ForgeRegistries.BLOCKS, Ref.MOD_ID);
 
     public BlutmondRPG() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -44,7 +47,10 @@ public class BlutmondRPG {
 
         //Registers Items
         new ItemList();
+        //Registers Blocks
+        new BlockList();
         ITEM_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BLOCK_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     private void setup(final FMLCommonSetupEvent e) {
@@ -84,7 +90,11 @@ public class BlutmondRPG {
         pendingGroupRequest.remove(invitor, invited);
     }
 
-    public static DeferredRegister<Item> getItemManager() {
+    public static DeferredRegister<Item> getItemRegistry() {
         return ITEM_REGISTRY;
+    }
+
+    public static DeferredRegister<Block> getBlockRegistry() {
+        return BLOCK_REGISTRY;
     }
 }
