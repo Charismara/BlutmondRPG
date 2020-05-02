@@ -4,6 +4,7 @@ import de.blutmondgilde.blutmondrpg.blocks.BlockList;
 import de.blutmondgilde.blutmondrpg.capabilities.CustomCapabilityManager;
 import de.blutmondgilde.blutmondrpg.commands.CommandManager;
 import de.blutmondgilde.blutmondrpg.event.GroupPlayerLeaveEvent;
+import de.blutmondgilde.blutmondrpg.handler.GenerationHandler;
 import de.blutmondgilde.blutmondrpg.handler.GroupHandler;
 import de.blutmondgilde.blutmondrpg.handler.PlayerHandler;
 import de.blutmondgilde.blutmondrpg.handler.RenderHandler;
@@ -44,6 +45,7 @@ public class BlutmondRPG {
         MinecraftForge.EVENT_BUS.register(new PlayerHandler());
         MinecraftForge.EVENT_BUS.register(new RenderHandler());
         MinecraftForge.EVENT_BUS.register(new GroupHandler());
+        MinecraftForge.EVENT_BUS.register(new GenerationHandler());
 
         //Registers Items
         new ItemList();

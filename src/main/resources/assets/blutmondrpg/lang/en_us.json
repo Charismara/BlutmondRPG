@@ -57,5 +57,10 @@
   "item.blutmondrpg.dark_steel_nugget": "Dark Steel Nugget",
   "item.blutmondrpg.mithril_nugget": "Mithril Nugget",
   "item.blutmondrpg.tin_nugget": "Tin Nugget",
-  "item.blutmondrpg.deldrimor_steel_nugget": "Deldrimor Steel Nugget"
+  "item.blutmondrpg.deldrimor_steel_nugget": "Deldrimor Steel Nugget",
+  "item.blutmondrpg.mithrilium_chunk": "Mithrilium Chunk",
+  "block.blutmondrpg.copper_ore": "Copper Ore",
+  "block.blutmondrpg.tin_ore": "Tin Ore",
+  "block.blutmondrpg.platinum_ore": "Platinum Ore",
+  "block.blutmondrpg.mithril_ore": "Mithril Ore"
 }

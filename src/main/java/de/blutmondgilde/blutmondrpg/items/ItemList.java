@@ -2,6 +2,7 @@ package de.blutmondgilde.blutmondrpg.items;
 
 import de.blutmondgilde.blutmondrpg.BlutmondRPG;
 import de.blutmondgilde.blutmondrpg.blocks.BlockList;
+import de.blutmondgilde.blutmondrpg.items.templates.FuelItem;
 import de.blutmondgilde.blutmondrpg.items.templates.MaterialBlockItem;
 import de.blutmondgilde.blutmondrpg.items.templates.MaterialItem;
 import de.blutmondgilde.blutmondrpg.util.Ref;
@@ -12,8 +13,8 @@ import net.minecraftforge.registries.DeferredRegister;
 public class ItemList {
     private static final DeferredRegister<Item> ITEM_REGISTRY = BlutmondRPG.getItemRegistry();
     //
-    public static final RegistryObject<Item> PRIMORDIUM = ITEM_REGISTRY.register("primordium", MaterialItem::new);
-    public static final RegistryObject<Item> THERMOCATALYTIC_REAGENT = ITEM_REGISTRY.register("thermocatalytic_reagent", MaterialItem::new);
+    public static final RegistryObject<Item> PRIMORDIUM = ITEM_REGISTRY.register("primordium", () -> new FuelItem(4000)); //1 coal + 8 wood logs
+    public static final RegistryObject<Item> THERMOCATALYTIC_REAGENT = ITEM_REGISTRY.register("thermocatalytic_reagent", () -> new FuelItem(32000)); // 7 primordium + 1 blaze rod + 1 coal
     //Ingots
     public static final RegistryObject<Item> COPPER_INGOT = ITEM_REGISTRY.register("copper_ingot", MaterialItem::new);
     public static final RegistryObject<Item> TIN_INGOT = ITEM_REGISTRY.register("tin_ingot", MaterialItem::new);
@@ -41,6 +42,13 @@ public class ItemList {
     public static final RegistryObject<Item> DARK_STEEL_NUGGET = ITEM_REGISTRY.register("dark_steel_nugget", MaterialItem::new);
     public static final RegistryObject<Item> MITHRIL_NUGGET = ITEM_REGISTRY.register("mithril_nugget", MaterialItem::new);
     public static final RegistryObject<Item> DELDRIMOR_STEEL_NUGGET = ITEM_REGISTRY.register("deldrimor_steel_nugget", MaterialItem::new);
+    //Crafting
+    public static final RegistryObject<Item> MITHRILIUM_CHUNK = ITEM_REGISTRY.register("mithrilium_chunk", MaterialItem::new);
+    //Ores
+    public static final RegistryObject<Item> COPPER_ORE = ITEM_REGISTRY.register("copper_ore", () -> new MaterialBlockItem(BlockList.COPPER_ORE));
+    public static final RegistryObject<Item> TIN_ORE = ITEM_REGISTRY.register("tin_ore", () -> new MaterialBlockItem(BlockList.TIN_ORE));
+    public static final RegistryObject<Item> PLATINUM_ORE = ITEM_REGISTRY.register("platinum_ore", () -> new MaterialBlockItem(BlockList.PLATINUM_ORE));
+    public static final RegistryObject<Item> MITHRIL_ORE = ITEM_REGISTRY.register("mithril_ore", () -> new MaterialBlockItem(BlockList.MITHRIL_ORE));
 
     public ItemList() {
         Ref.LOGGER.debug("Items registered");
