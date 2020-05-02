@@ -65,7 +65,7 @@ public class GroupOverlay extends AbstractGui {
 
     private void renderBackground(final int yOffset) {
         final int width = 150;
-        final ResourceLocation resourceLocation = new ResourceLocation(Ref.MOD_ID, "gui/bars.png");
+        final ResourceLocation resourceLocation = new ResourceLocation(Ref.MOD_ID, "textures/gui/bars.png");
 
         this.client.getTextureManager().bindTexture(resourceLocation);
         GlStateManager.bindTexture(this.client.textureManager.getTexture(resourceLocation).getGlTextureId());

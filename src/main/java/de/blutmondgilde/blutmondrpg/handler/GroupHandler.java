@@ -25,7 +25,9 @@ public class GroupHandler {
     public void onPlayerHeal(final LivingHealEvent e) {
         final LivingEntity entity = e.getEntityLiving();
         if (!isPlayer(entity)) return;
+        entity.setHealth(entity.getHealth() + e.getAmount());
         sendInfosToPlayers((PlayerEntity) entity);
+        entity.setHealth(entity.getHealth() - e.getAmount());
     }
 
     @SubscribeEvent
