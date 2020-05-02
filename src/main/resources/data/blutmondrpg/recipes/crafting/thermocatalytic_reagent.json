@@ -7,10 +7,10 @@
   ],
   "key": {
     "C": {
-      "item": "minecraft:coals"
+      "tag": "minecraft:coals"
     },
     "P": {
-      "tag": "blutmondrpg:primordium"
+      "item": "blutmondrpg:primordium"
     },
     "L": {
       "item": "minecraft:blaze_rod"

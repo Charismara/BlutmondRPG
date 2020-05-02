@@ -7,7 +7,7 @@
   ],
   "key": {
     "C": {
-      "item": "minecraft:coals"
+      "tag": "minecraft:coals"
     },
     "W": {
       "tag": "minecraft:logs"
