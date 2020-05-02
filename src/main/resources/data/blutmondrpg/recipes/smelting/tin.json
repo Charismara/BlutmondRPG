@@ -1,0 +1,10 @@
+
+{
+  "type": "smelting",
+  "ingredient": {
+    "tag": "forge:ores/tin"
+  },
+  "result": "blutmondrpg:tin_ingot",
+  "experience": 0.75,
+  "cookingTime": 200
+}

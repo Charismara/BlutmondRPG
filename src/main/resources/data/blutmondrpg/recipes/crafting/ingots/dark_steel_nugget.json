@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "group": "blutmondrpg:ingot",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:nuggets/dark_steel"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:dark_steel_ingot",
+    "count": 1
+  }
+}

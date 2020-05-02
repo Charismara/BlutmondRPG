@@ -1,0 +1,13 @@
+{
+  "type": "crafting_shapeless",
+  "group": "blutmondrpg:ingot",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/copper"
+    }
+  ],
+  "result": {
+    "item": "blutmondrpg:copper_ingot",
+    "count": 9
+  }
+}

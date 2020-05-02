@@ -1,0 +1,13 @@
+{
+  "type": "crafting_shapeless",
+  "group": "blutmondrpg:ingot",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/bronze"
+    }
+  ],
+  "result": {
+    "item": "blutmondrpg:bronze_ingot",
+    "count": 9
+  }
+}

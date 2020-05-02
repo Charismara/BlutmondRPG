@@ -12,7 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 
 public class ItemList {
     private static final DeferredRegister<Item> ITEM_REGISTRY = BlutmondRPG.getItemRegistry();
-    //
+    //Fuel
     public static final RegistryObject<Item> PRIMORDIUM = ITEM_REGISTRY.register("primordium", () -> new FuelItem(4000)); //1 coal + 8 wood logs
     public static final RegistryObject<Item> THERMOCATALYTIC_REAGENT = ITEM_REGISTRY.register("thermocatalytic_reagent", () -> new FuelItem(32000)); // 7 primordium + 1 blaze rod + 1 coal
     //Ingots

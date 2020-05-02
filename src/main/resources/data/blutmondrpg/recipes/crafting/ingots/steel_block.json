@@ -1,0 +1,12 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/steel"
+    }
+  ],
+  "result": {
+    "item": "blutmondrpg:steel_ingot",
+    "count": 9
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:storage_blocks/copper",
+    "#forge:storage_blocks/bronze",
+    "#forge:storage_blocks/dark_steel",
+    "#forge:storage_blocks/deldrimor_steel",
+    "#forge:storage_blocks/mithril",
+    "#forge:storage_blocks/platinum",
+    "#forge:storage_blocks/steel",
+    "#forge:storage_blocks/tin"
+  ]
+}

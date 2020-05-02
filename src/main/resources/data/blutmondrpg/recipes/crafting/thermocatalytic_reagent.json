@@ -1,0 +1,23 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "PLP"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:coals"
+    },
+    "P": {
+      "tag": "blutmondrpg:primordium"
+    },
+    "L": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:thermocatalytic_reagent",
+    "count": 1
+  }
+}
