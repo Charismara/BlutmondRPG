@@ -10,9 +10,7 @@ import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.placement.ConfiguredPlacement;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class GenerationHandler {
@@ -24,17 +22,12 @@ public class GenerationHandler {
     //Diamond: 1, 8
     //Lapis: 1, 7
 
-    @SubscribeEvent
-    public void loadComplete(final FMLLoadCompleteEvent e) {
-        GenerationHandler.generateOres();
-    }
-
     public static void generateOres() {
         generateOre(BlockList.COPPER_ORE, 20, 10, 30, 200);
         generateOre(BlockList.TIN_ORE, 20, 8, 25, 150);
         generateOre(BlockList.PLATINUM_ORE, 1, 4, 5, 10);
         generateOre(BlockList.MITHRIL_ORE, 5, 8, 5, 50);
-        Ref.LOGGER.debug("Registered Ore Generator");
+        Ref.LOGGER.debug("Registered Ore-Generator");
     }
 
 
@@ -47,7 +40,6 @@ public class GenerationHandler {
                             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, oreBlock.get().getDefaultState(), maxVeinSize))
                             .withPlacement(orePlacement)
             );
-            Ref.LOGGER.debug("Generated " + oreBlock.get().getRegistryName().getNamespace());
         }
     }
 }

@@ -17,6 +17,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -60,6 +61,8 @@ public class BlutmondRPG {
         CustomCapabilityManager.registerCapabilities();
         //Register Network Channel
         CustomNetworkManager.register();
+        //Register OreGen
+        DeferredWorkQueue.runLater(GenerationHandler::generateOres);
     }
 
     private void serverSetup(final FMLServerStartingEvent e) {
