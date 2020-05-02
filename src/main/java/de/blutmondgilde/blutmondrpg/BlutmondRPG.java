@@ -6,10 +6,12 @@ import de.blutmondgilde.blutmondrpg.event.GroupPlayerLeaveEvent;
 import de.blutmondgilde.blutmondrpg.handler.GroupHandler;
 import de.blutmondgilde.blutmondrpg.handler.PlayerHandler;
 import de.blutmondgilde.blutmondrpg.handler.RenderHandler;
+import de.blutmondgilde.blutmondrpg.items.ItemList;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -17,6 +19,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +30,7 @@ import java.util.Map;
 public class BlutmondRPG {
     private static MinecraftServer minecraftServer;
     private static final Map<PlayerEntity, PlayerEntity> pendingGroupRequest = new HashMap<>();
+    private static final DeferredRegister<Item> ITEM_REGISTRY = new DeferredRegister<>(ForgeRegistries.ITEMS, Ref.MOD_ID);
 
     public BlutmondRPG() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -36,6 +41,10 @@ public class BlutmondRPG {
         MinecraftForge.EVENT_BUS.register(new PlayerHandler());
         MinecraftForge.EVENT_BUS.register(new RenderHandler());
         MinecraftForge.EVENT_BUS.register(new GroupHandler());
+
+        //Registers Items
+        new ItemList();
+        ITEM_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     private void setup(final FMLCommonSetupEvent e) {
@@ -73,5 +82,9 @@ public class BlutmondRPG {
 
     public static void removePendingGroupRequest(PlayerEntity invitor, PlayerEntity invited) {
         pendingGroupRequest.remove(invitor, invited);
+    }
+
+    public static DeferredRegister<Item> getItemManager() {
+        return ITEM_REGISTRY;
     }
 }
