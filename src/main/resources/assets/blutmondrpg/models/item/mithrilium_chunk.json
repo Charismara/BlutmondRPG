@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "blutmondrpg:items/mithril_chunk"
+    "layer0": "blutmondrpg:items/mithrilium_chunk"
   }
 }
