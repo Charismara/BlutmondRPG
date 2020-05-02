@@ -25,7 +25,7 @@ public class GenerationHandler {
     //Lapis: 1, 7
 
     @SubscribeEvent
-    private void loadComplete(final FMLLoadCompleteEvent e) {
+    public void loadComplete(final FMLLoadCompleteEvent e) {
         GenerationHandler.generateOres();
     }
 
