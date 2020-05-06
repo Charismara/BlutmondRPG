@@ -10,7 +10,6 @@ public class MaterialBlock extends Block {
         this(0);
     }
 
-
     public MaterialBlock(int harvestLevel) {
         super(
                 Block.Properties
