@@ -30,23 +30,23 @@ public class GroupPlayerLeaveEvent extends Event {
             if (uuid.equals(player.getUniqueID())) continue;
 
             final PlayerEntity groupPlayer = BlutmondRPG.getMinecraftServer().getPlayerList().getPlayerByUUID(uuid);
-            IGroup groupCap = CapabilityHelper.getGroupCapability(groupPlayer);
             try {
+                IGroup groupCap = CapabilityHelper.getGroupCapability(groupPlayer);
                 if (changePartyMaster) groupCap.setPartyMaster(playerCap.getMemberList().get(1));
-            } catch (Exception ignore){
+
+                //Remove player from capability
+                groupCap.removeMember(player.getUniqueID());
+                ITextComponent message = player.getDisplayName();
+                message.appendText(" ");
+                message.appendSibling(new TranslationTextComponent("blutmondrpg.command.group.leave.members"));
+                groupPlayer.sendMessage(message);
+
+                //Sync player capability
+                CustomNetworkManager.removeGroupInfo(groupPlayer, player.getUniqueID());
+                CustomNetworkManager.syncPlayerGroup(groupPlayer);
+            } catch (Exception ignore) {
 
             }
-
-            //Remove player from capability
-            groupCap.removeMember(player.getUniqueID());
-            ITextComponent message = player.getDisplayName();
-            message.appendText(" ");
-            message.appendSibling(new TranslationTextComponent("blutmondrpg.command.group.leave.members"));
-            groupPlayer.sendMessage(message);
-
-            //Sync player capability
-            CustomNetworkManager.removeGroupInfo(groupPlayer, player.getUniqueID());
-            CustomNetworkManager.syncPlayerGroup(groupPlayer);
         }
 
         try {
