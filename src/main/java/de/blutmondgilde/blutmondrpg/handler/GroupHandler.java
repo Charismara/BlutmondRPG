@@ -57,7 +57,11 @@ public class GroupHandler {
         IGroup cap = CapabilityHelper.getGroupCapability(player);
 
         for (UUID uuid : cap.getMemberList()) {
-            CustomNetworkManager.removeGroupInfo(BlutmondRPG.getMinecraftServer().getPlayerList().getPlayerByUUID(uuid), player.getUniqueID());
+            try {
+                CustomNetworkManager.removeGroupInfo(BlutmondRPG.getMinecraftServer().getPlayerList().getPlayerByUUID(uuid), player.getUniqueID());
+            } catch (Exception ignore) {
+            }
+
         }
 
         MinecraftForge.EVENT_BUS.post(new GroupPlayerLeaveEvent(player));
