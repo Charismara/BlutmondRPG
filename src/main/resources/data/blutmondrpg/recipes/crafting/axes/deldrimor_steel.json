@@ -1,0 +1,20 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "## ",
+    "#S ",
+    " S "
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/deldrimor_steel"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:deldrimor_steel_axe",
+    "count": 1
+  }
+}

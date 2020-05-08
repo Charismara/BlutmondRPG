@@ -1,0 +1,20 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "## ",
+    "#S ",
+    " S "
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/mithril"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:mithril_axe",
+    "count": 1
+  }
+}

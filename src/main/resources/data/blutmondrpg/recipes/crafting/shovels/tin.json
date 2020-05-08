@@ -1,0 +1,20 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    " # ",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/tin"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:tin_shovel",
+    "count": 1
+  }
+}
