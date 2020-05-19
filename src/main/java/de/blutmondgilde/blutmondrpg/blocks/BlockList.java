@@ -2,10 +2,13 @@ package de.blutmondgilde.blutmondrpg.blocks;
 
 import de.blutmondgilde.blutmondrpg.BlutmondRPG;
 import de.blutmondgilde.blutmondrpg.blocks.templates.DefaultOreBlock;
+import de.blutmondgilde.blutmondrpg.blocks.templates.FluidBlockTemplate;
 import de.blutmondgilde.blutmondrpg.blocks.templates.MaterialBlock;
+import de.blutmondgilde.blutmondrpg.fluids.FluidList;
 import de.blutmondgilde.blutmondrpg.items.tiers.BlutmondTiers;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.block.Block;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 
@@ -25,6 +28,8 @@ public class BlockList {
     public static final RegistryObject<Block> TIN_ORE = BLOCKS.register("tin_ore", () -> new DefaultOreBlock(BlutmondTiers.TIN.getHarvestLevel() - 1));
     public static final RegistryObject<Block> PLATINUM_ORE = BLOCKS.register("platinum_ore", () -> new DefaultOreBlock(BlutmondTiers.PLATINUM.getHarvestLevel() - 1));
     public static final RegistryObject<Block> MITHRIL_ORE = BLOCKS.register("mithril_ore", () -> new DefaultOreBlock(BlutmondTiers.MITHRIL.getHarvestLevel() - 1));
+    //FluidBlocks
+    public static final RegistryObject<FlowingFluidBlock> CRYSTALLIZER_FLUID = BLOCKS.register("crystallizer", () -> new FluidBlockTemplate(FluidList.CRYSTALLIZER));
 
     public BlockList() {
         Ref.LOGGER.debug("Blocks Registered");

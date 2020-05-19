@@ -2,6 +2,7 @@ package de.blutmondgilde.blutmondrpg.items;
 
 import de.blutmondgilde.blutmondrpg.BlutmondRPG;
 import de.blutmondgilde.blutmondrpg.blocks.BlockList;
+import de.blutmondgilde.blutmondrpg.fluids.FluidList;
 import de.blutmondgilde.blutmondrpg.items.templates.*;
 import de.blutmondgilde.blutmondrpg.items.tiers.BlutmondTiers;
 import de.blutmondgilde.blutmondrpg.util.Ref;
@@ -75,6 +76,8 @@ public class ItemList {
     public static final RegistryObject<Item> DARK_STEEL_SHOVEL = ITEM_REGISTRY.register("dark_steel_shovel", () -> new ShovelToolItem(BlutmondTiers.DARK_STEEL));
     public static final RegistryObject<Item> MITHRIL_SHOVEL = ITEM_REGISTRY.register("mithril_shovel", () -> new ShovelToolItem(BlutmondTiers.MITHRIL));
     public static final RegistryObject<Item> DELDRIMOR_STEEL_SHOVEL = ITEM_REGISTRY.register("deldrimor_steel_shovel", () -> new ShovelToolItem(BlutmondTiers.DELDRIMOR_STEEL));
+    //Buckets
+    public static final RegistryObject<Item> CRYSTALLIZER_BUCKET = ITEM_REGISTRY.register("crystallizer_bucket", () -> new BucketTemplate(FluidList.CRYSTALLIZER));
 
 
     public ItemList() {

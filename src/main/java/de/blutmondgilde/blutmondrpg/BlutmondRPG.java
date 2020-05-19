@@ -4,16 +4,15 @@ import de.blutmondgilde.blutmondrpg.blocks.BlockList;
 import de.blutmondgilde.blutmondrpg.capabilities.CustomCapabilityManager;
 import de.blutmondgilde.blutmondrpg.commands.CommandManager;
 import de.blutmondgilde.blutmondrpg.event.GroupPlayerLeaveEvent;
-import de.blutmondgilde.blutmondrpg.handler.GenerationHandler;
-import de.blutmondgilde.blutmondrpg.handler.GroupHandler;
-import de.blutmondgilde.blutmondrpg.handler.PlayerHandler;
-import de.blutmondgilde.blutmondrpg.handler.RenderHandler;
+import de.blutmondgilde.blutmondrpg.fluids.FluidList;
+import de.blutmondgilde.blutmondrpg.handler.*;
 import de.blutmondgilde.blutmondrpg.items.ItemList;
 import de.blutmondgilde.blutmondrpg.network.CustomNetworkManager;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,6 +35,7 @@ public class BlutmondRPG {
     private static final Map<PlayerEntity, PlayerEntity> pendingGroupRequest = new HashMap<>();
     private static final DeferredRegister<Item> ITEM_REGISTRY = new DeferredRegister<>(ForgeRegistries.ITEMS, Ref.MOD_ID);
     private static final DeferredRegister<Block> BLOCK_REGISTRY = new DeferredRegister<>(ForgeRegistries.BLOCKS, Ref.MOD_ID);
+    private static final DeferredRegister<Fluid> FLUID_REGISTRY = new DeferredRegister<>(ForgeRegistries.FLUIDS, Ref.MOD_ID);
 
     public BlutmondRPG() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -52,8 +52,12 @@ public class BlutmondRPG {
         new ItemList();
         //Registers Blocks
         new BlockList();
+        //Registers Fluids
+        new FluidList();
+
         ITEM_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCK_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
+        FLUID_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     private void setup(final FMLCommonSetupEvent e) {
@@ -101,5 +105,9 @@ public class BlutmondRPG {
 
     public static DeferredRegister<Block> getBlockRegistry() {
         return BLOCK_REGISTRY;
+    }
+
+    public static DeferredRegister<Fluid> getFluidRegistry() {
+        return FLUID_REGISTRY;
     }
 }
