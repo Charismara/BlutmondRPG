@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#forge:ores/copper",
-    "#forge:ores/mithril",
-    "#forge:ores/platinum",
-    "#forge:ores/tin"
-  ]
-}
