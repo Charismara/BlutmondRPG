@@ -7,7 +7,9 @@ import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.BoatEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,6 +40,11 @@ public class FluidBlockTemplate extends FlowingFluidBlock {
                 entityIn.extinguish();
                 entityIn.inWater = true;
             }
+        }
+
+        if (entityIn instanceof ItemEntity) {
+            ItemEntity itemEntity = (ItemEntity) entityIn;
+            Item item = itemEntity.getItem().getItem();
         }
     }
 }
