@@ -1,6 +1,6 @@
 package de.blutmondgilde.blutmondrpg.blocks.templates;
 
-import de.blutmondgilde.blutmondrpg.fluids.BlutmondFluidTags;
+import de.blutmondgilde.blutmondrpg.data.DataProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
@@ -35,7 +35,7 @@ public class FluidBlockTemplate extends FlowingFluidBlock {
         if (entityIn.getRidingEntity() instanceof BoatEntity) {
             entityIn.inWater = false;
         } else {
-            if (entityIn.handleFluidAcceleration(BlutmondFluidTags.CRYSTALLIZER)) {
+            if (entityIn.handleFluidAcceleration(DataProvider.Fluids.CRYSTALLIZER)) {
                 entityIn.fallDistance = 0.0F;
                 entityIn.extinguish();
                 entityIn.inWater = true;
