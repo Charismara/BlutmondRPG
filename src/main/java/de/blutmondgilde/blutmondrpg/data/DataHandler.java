@@ -20,5 +20,6 @@ public class DataHandler {
         generator.addProvider(new DataFluidTagProvider(generator));
         //Generate Recipes
         generator.addProvider(new DataRecipeProvider(generator));
+        generator.addProvider(new DataBlockLootProvider(generator));
     }
 }
