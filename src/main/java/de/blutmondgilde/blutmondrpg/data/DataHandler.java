@@ -14,9 +14,11 @@ public class DataHandler {
         if (!e.includeServer()) return;
 
         final DataGenerator generator = e.getGenerator();
-
+        //Generate Tags
         generator.addProvider(new DataBlockTagProvider(generator));
         generator.addProvider(new DataItemTagProvider(generator));
         generator.addProvider(new DataFluidTagProvider(generator));
+        //Generate Recipes
+        generator.addProvider(new DataRecipeProvider(generator));
     }
 }
