@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "blutmondrpg_materials",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:copper_block"
+  }
+}

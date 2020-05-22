@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "blutmondrpg_materials",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/dark_steel"
+    }
+  ],
+  "result": {
+    "item": "blutmondrpg:dark_steel_nugget",
+    "count": 9
+  }
+}

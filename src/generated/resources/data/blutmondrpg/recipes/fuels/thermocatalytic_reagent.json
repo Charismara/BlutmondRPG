@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "blutmondrpg_fuels",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "PBP"
+  ],
+  "key": {
+    "P": {
+      "item": "blutmondrpg:primordium"
+    },
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:thermocatalytic_reagent"
+  }
+}

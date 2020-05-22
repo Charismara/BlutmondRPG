@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "blutmondrpg_materials",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/platinum"
+    }
+  ],
+  "result": {
+    "item": "blutmondrpg:platinum_ingot",
+    "count": 9
+  }
+}

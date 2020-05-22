@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "blutmondrpg_materials",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "tag": "forge:nuggets/bronze"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:bronze_ingot"
+  }
+}

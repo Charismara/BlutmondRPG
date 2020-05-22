@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "blutmondrpg_materials",
+  "ingredients": [
+    {
+      "tag": "forge:storage_blocks/deldrimor_steel"
+    }
+  ],
+  "result": {
+    "item": "blutmondrpg:deldrimor_steel_ingot",
+    "count": 9
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "blutmondrpg_materials",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/mithril"
+    }
+  ],
+  "result": {
+    "item": "blutmondrpg:mithril_nugget",
+    "count": 9
+  }
+}

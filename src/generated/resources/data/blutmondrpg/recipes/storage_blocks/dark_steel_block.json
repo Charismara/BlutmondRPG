@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "blutmondrpg_materials",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "tag": "forge:ingots/dark_steel"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:dark_steel_block"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "blutmondrpg_materials",
+  "pattern": [
+    "NNN",
+    "NNN",
+    "NNN"
+  ],
+  "key": {
+    "N": {
+      "tag": "forge:nuggets/deldrimor_steel"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:deldrimor_steel_ingot"
+  }
+}
