@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "blutmondrpg:smelting/ores/tin"
+    ]
+  },
+  "criteria": {
+    "hasItem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ores/tin"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "blutmondrpg:smelting/ores/tin"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "hasItem",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "forge:ores/mithril"
+  },
+  "result": "blutmondrpg:mithril_ingot",
+  "experience": 0.5,
+  "cookingtime": 200
+}

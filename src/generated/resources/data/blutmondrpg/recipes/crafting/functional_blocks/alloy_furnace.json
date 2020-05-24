@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "blutmondrpg_alloy_smelting",
+  "pattern": [
+    "BBB",
+    "BFB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "F": {
+      "item": "minecraft:blast_furnace"
+    }
+  },
+  "result": {
+    "item": "blutmondrpg:alloy_furnace"
+  }
+}

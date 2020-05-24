@@ -1,0 +1,16 @@
+{
+  "input": [
+    {
+      "tag": "minecraft:coals"
+    },
+    {
+      "tag": "forge:ingots/iron"
+    }
+  ],
+  "processingTime": 450,
+  "output": {
+    "item": "blutmondrpg:steel_ingot",
+    "count": 1
+  },
+  "type": "blutmondrpg:alloy_smelting"
+}

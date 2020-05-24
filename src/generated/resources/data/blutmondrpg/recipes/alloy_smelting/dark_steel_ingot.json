@@ -1,0 +1,16 @@
+{
+  "input": [
+    {
+      "tag": "forge:ingots/platinum"
+    },
+    {
+      "tag": "blutmondrpg:fuels/primordium"
+    }
+  ],
+  "processingTime": 600,
+  "output": {
+    "item": "blutmondrpg:dark_steel_ingot",
+    "count": 1
+  },
+  "type": "blutmondrpg:alloy_smelting"
+}

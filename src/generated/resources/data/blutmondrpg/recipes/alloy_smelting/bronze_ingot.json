@@ -1,0 +1,16 @@
+{
+  "input": [
+    {
+      "tag": "forge:ingots/copper"
+    },
+    {
+      "tag": "forge:ingots/tin"
+    }
+  ],
+  "processingTime": 300,
+  "output": {
+    "item": "blutmondrpg:bronze_ingot",
+    "count": 2
+  },
+  "type": "blutmondrpg:alloy_smelting"
+}
