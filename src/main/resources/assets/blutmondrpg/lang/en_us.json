@@ -88,5 +88,8 @@
   "item.blutmondrpg.mithril_shovel": "Mithril Shovel",
   "item.blutmondrpg.tin_shovel": "Tin Shovel",
   "item.blutmondrpg.deldrimor_steel_shovel": "Deldrimor Steel Shovel",
-  "item.blutmondrpg.crystallizer_bucket": "Crystallizer Bucket"
+  "item.blutmondrpg.crystallizer_bucket": "Crystallizer Bucket",
+  "container.blutmondgilderpg.alloy_furnace": "Alloy Furnace",
+  "container.blutmondgilderpg.alloy_furnace.burntime": "Remaining Burntime",
+  "block.blutmongrpg.alloy_furnace": "Alloy Furnace"
 }

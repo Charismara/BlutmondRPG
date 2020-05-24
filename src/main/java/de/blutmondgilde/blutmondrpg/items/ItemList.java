@@ -1,6 +1,5 @@
 package de.blutmondgilde.blutmondrpg.items;
 
-import de.blutmondgilde.blutmondrpg.BlutmondRPG;
 import de.blutmondgilde.blutmondrpg.blocks.BlockList;
 import de.blutmondgilde.blutmondrpg.fluids.FluidList;
 import de.blutmondgilde.blutmondrpg.items.templates.*;
@@ -8,10 +7,12 @@ import de.blutmondgilde.blutmondrpg.items.tiers.BlutmondTiers;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class ItemList {
-    private static final DeferredRegister<Item> ITEM_REGISTRY = BlutmondRPG.getItemRegistry();
+    private static final DeferredRegister<Item> ITEM_REGISTRY = new DeferredRegister<>(ForgeRegistries.ITEMS, Ref.MOD_ID);
     //Fuel
     public static final RegistryObject<Item> PRIMORDIUM = ITEM_REGISTRY.register("primordium", () -> new FuelItem(4000)); //1 coal + 8 wood logs
     public static final RegistryObject<Item> THERMOCATALYTIC_REAGENT = ITEM_REGISTRY.register("thermocatalytic_reagent", () -> new FuelItem(32000)); // 7 primordium + 1 blaze rod + 1 coal
@@ -78,9 +79,11 @@ public class ItemList {
     public static final RegistryObject<Item> DELDRIMOR_STEEL_SHOVEL = ITEM_REGISTRY.register("deldrimor_steel_shovel", () -> new ShovelToolItem(BlutmondTiers.DELDRIMOR_STEEL));
     //Buckets
     public static final RegistryObject<Item> CRYSTALLIZER_BUCKET = ITEM_REGISTRY.register("crystallizer_bucket", () -> new BucketTemplate(FluidList.CRYSTALLIZER));
+    //TileEntities
+    public static final RegistryObject<Item> ALLOY_FURNACE = ITEM_REGISTRY.register("alloy_furnace", () -> new GenericContainerBlockItem(BlockList.ALLOY_FURNACE));
 
-
-    public ItemList() {
-        Ref.LOGGER.debug("Items registered");
+    public static void register(){
+        ITEM_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Ref.LOGGER.debug("Registered Items.");
     }
 }

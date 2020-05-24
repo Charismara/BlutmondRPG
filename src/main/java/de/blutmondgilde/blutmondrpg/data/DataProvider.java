@@ -46,6 +46,9 @@ public class DataProvider {
         public static final Tag<Item> PLATINUM_ORE = makeForgeTag("ores/platinum");
         public static final Tag<Item> MITHRIL_ORE = makeForgeTag("ores/mithril");
 
+        public static final Tag<Item> PRIMORDIUM = makeModTag("fuels/primordium");
+        public static final Tag<Item> THERMOCATALYTIC_REAGENT = makeModTag("fuels/thermocatalytic_reagent");
+
         private static Tag<Item> makeModTag(String tag) {
             return new ItemTags.Wrapper(new ResourceLocation(Ref.MOD_ID, tag));
         }

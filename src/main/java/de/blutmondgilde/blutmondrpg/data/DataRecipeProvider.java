@@ -26,7 +26,18 @@ public class DataRecipeProvider extends RecipeProvider {
         registerNuggets(consumer);
         registerIngots(consumer);
         registerStorageBlocks(consumer);
+        registerCrafting(consumer);
+    }
 
+    private void registerCrafting(Consumer<IFinishedRecipe> consumer) {
+        ShapedRecipeBuilder.shapedRecipe(ItemList.ALLOY_FURNACE.get())
+                .patternLine("BBB")
+                .patternLine("BFB")
+                .patternLine("BBB")
+                .key('B', Items.BRICK)
+                .key('F', Items.BLAST_FURNACE)
+                .addCriterion("none", hasItem(Items.BLAST_FURNACE))
+                .build(consumer, getRecipeResourceLocation("functional_blocks", ItemList.ALLOY_FURNACE));
     }
 
     private void registerStorageBlocks(Consumer<IFinishedRecipe> consumer) {
@@ -190,6 +201,6 @@ public class DataRecipeProvider extends RecipeProvider {
     }
 
     private ResourceLocation getRecipeResourceLocation(String path, RegistryObject<Item> item) {
-        return new ResourceLocation(Ref.MOD_ID, path + "/" + item.get().getRegistryName().getPath());
+        return new ResourceLocation(Ref.MOD_ID, "crafting/" + path + "/" + item.get().getRegistryName().getPath());
     }
 }

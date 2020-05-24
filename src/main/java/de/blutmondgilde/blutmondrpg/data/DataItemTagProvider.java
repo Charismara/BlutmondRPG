@@ -36,6 +36,9 @@ public class DataItemTagProvider extends ItemTagsProvider {
 
         register(DataProvider.Items.MITHRILIUM_CHUNK, ItemList.MITHRILIUM_CHUNK);
 
+        register(DataProvider.Items.PRIMORDIUM, ItemList.PRIMORDIUM);
+        register(DataProvider.Items.THERMOCATALYTIC_REAGENT, ItemList.THERMOCATALYTIC_REAGENT);
+
         copyBlocks();
     }
 

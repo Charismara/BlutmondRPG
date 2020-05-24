@@ -16,6 +16,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class RenderHandler {
+
     @OnlyIn(Dist.CLIENT)
     private float manaDisplayAlpha;
 

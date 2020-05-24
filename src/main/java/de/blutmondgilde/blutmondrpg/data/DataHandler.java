@@ -1,5 +1,6 @@
 package de.blutmondgilde.blutmondrpg.data;
 
+import de.blutmondgilde.blutmondrpg.recipe.provider.BlutmondRPGSerializableProvider;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,6 +21,10 @@ public class DataHandler {
         generator.addProvider(new DataFluidTagProvider(generator));
         //Generate Recipes
         generator.addProvider(new DataRecipeProvider(generator));
+        generator.addProvider(new DataSmeltingProvider(generator));
+        //Generate Block Loot Table
         generator.addProvider(new DataBlockLootProvider(generator));
+        //Generate Alloy Furnace
+        generator.addProvider(new BlutmondRPGSerializableProvider(generator));
     }
 }

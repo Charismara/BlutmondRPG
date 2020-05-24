@@ -10,4 +10,8 @@ public class MaterialBlockItem extends BlockItem {
     public MaterialBlockItem(RegistryObject<Block> block) {
         super(block.get(), new Item.Properties().group(BlutmondItemGroups.MATERIALS));
     }
+
+    public MaterialBlockItem(RegistryObject<Block> block, Properties properties) {
+        super(block.get(), properties.group(BlutmondItemGroups.MATERIALS));
+    }
 }
