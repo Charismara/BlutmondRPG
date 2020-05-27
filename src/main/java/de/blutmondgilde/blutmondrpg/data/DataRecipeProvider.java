@@ -34,10 +34,10 @@ public class DataRecipeProvider extends RecipeProvider {
                 .patternLine("BBB")
                 .patternLine("BFB")
                 .patternLine("BBB")
-                .key('B', Items.BRICK)
+                .key('B', Items.BRICKS)
                 .key('F', Items.BLAST_FURNACE)
-                .addCriterion("none", hasItem(Items.BLAST_FURNACE))
-                .build(consumer, getRecipeResourceLocation("functional_blocks", ItemList.ALLOY_FURNACE));
+                .addCriterion("hasItem", hasItem(Items.BLAST_FURNACE))
+                .build(consumer, getRecipeResourceLocation("blocks", ItemList.ALLOY_FURNACE));
     }
 
     private void registerStorageBlocks(Consumer<IFinishedRecipe> consumer) {

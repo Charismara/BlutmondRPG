@@ -2,11 +2,11 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "blutmondrpg:crafting/functional_blocks/alloy_furnace"
+      "blutmondrpg:crafting/blocks/alloy_furnace"
     ]
   },
   "criteria": {
-    "none": {
+    "hasItem": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "blutmondrpg:crafting/functional_blocks/alloy_furnace"
+        "recipe": "blutmondrpg:crafting/blocks/alloy_furnace"
       }
     }
   },
   "requirements": [
     [
-      "none",
+      "hasItem",
       "has_the_recipe"
     ]
   ]
