@@ -2,8 +2,8 @@ package de.blutmondgilde.blutmondrpg.capabilities.mobscaling;
 
 import de.blutmondgilde.blutmondrpg.BlutmondRPG;
 import de.blutmondgilde.blutmondrpg.capabilities.modclass.IModClass;
-import de.blutmondgilde.blutmondrpg.capabilities.modclass.ModClassProvider;
 import de.blutmondgilde.blutmondrpg.enums.ClassLevel;
+import de.blutmondgilde.blutmondrpg.util.CapabilityHelper;
 import de.blutmondgilde.blutmondrpg.util.Ref;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.dimension.DimensionType;
@@ -28,11 +28,11 @@ public class MobScaling implements IMobScaling {
     @Override
     public void setClosestPlayer(PlayerEntity player) {
         this.closestPlayer = player;
-        IModClass playerCap = player.getCapability(ModClassProvider.MOD_CLASS_CAPABILITY).orElseThrow(() -> new IllegalStateException("Tried to get class capability from a non-player entity"));
+        IModClass playerCap = CapabilityHelper.getClassCapability(player, "Tried to load Capability from a non-player entity");
         ClassLevel level = playerCap.getClassLevel();
         this.maxHP = level.getId() * 0.75F;
         this.attackDamage = level.getId();
-        this.exp = 0.025F;
+        this.exp = 0.125F;
     }
 
     @Override
