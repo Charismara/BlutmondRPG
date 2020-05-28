@@ -35,7 +35,7 @@ public abstract class SerializableProvider implements IDataProvider {
     }
 
     @Override
-    public void act(DirectoryCache cache) throws IOException {
+    public void act(DirectoryCache cache) {
         add(serializables);
         Path path = this.generator.getOutputFolder();
         Set<Path> set = Sets.newHashSet();

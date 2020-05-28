@@ -6,7 +6,7 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 
 public class TwoInputSlots implements IItemHandler {
-    private ItemStack[] itemStacks = new ItemStack[2];
+    private final ItemStack[] itemStacks = new ItemStack[2];
 
     public TwoInputSlots(ItemStack first, ItemStack second) {
         this.itemStacks[0] = first;
