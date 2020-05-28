@@ -105,49 +105,6 @@ public enum ClassLevel {
     }
 
     public static ClassLevel getLevelFromId(int id) {
-        switch (id) {
-            case 1:
-                return L1;
-            case 2:
-                return L2;
-            case 3:
-                return L3;
-            case 4:
-                return L4;
-            case 5:
-                return L5;
-            case 6:
-                return L6;
-            case 7:
-                return L7;
-            case 8:
-                return L8;
-            case 9:
-                return L9;
-            case 10:
-                return L10;
-            case 11:
-                return L11;
-            case 12:
-                return L12;
-            case 13:
-                return L13;
-            case 14:
-                return L14;
-            case 15:
-                return L15;
-            case 16:
-                return L16;
-            case 17:
-                return L17;
-            case 18:
-                return L18;
-            case 19:
-                return L19;
-            case 20:
-                return L20;
-            default:
-                throw new IllegalArgumentException("There is no Level with the ID: " + id);
-        }
+        return ClassLevel.values()[id];
     }
 }
